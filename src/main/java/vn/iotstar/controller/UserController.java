@@ -27,8 +27,9 @@ public class UserController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public User createUser(@RequestBody User User) {
-		return userService.save(User);
+	public User createUser(@RequestParam(name = "username", required = false) String username,
+			@RequestParam(name = "password", required = false) String password ) {
+		return userService.createUser(username,password);
 	}
 
 	@PostMapping("/get")

@@ -70,4 +70,12 @@ public class UserService {
 	public User getUserByUsername(String username, String password) {
 		return userRepo.getUserByUsernameAndPassword(username, password);
 	}
+
+	public User createUser(String username, String password) {
+		User entity = new User();
+		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		entity.setUsername(username);
+		entity.setPassword(password);
+		return userRepo.save(entity);
+	}
 }
