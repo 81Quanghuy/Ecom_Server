@@ -32,7 +32,7 @@ public class UserController {
 			@RequestParam(name = "password", required = false) String password ) {
 		List<User> list = userService.findAll();
 		for (User user : list) {
-			if(user.getUsername().equals(username)) {
+			if(user.getUsername() == (username)) {
 				return null;
 			}
 		} 
