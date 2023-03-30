@@ -1,5 +1,6 @@
 package vn.iotstar.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,12 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(@RequestParam(name = "username", required = false) String username,
 			@RequestParam(name = "password", required = false) String password ) {
+		List<User> list = userService.findAll();
+		for (User user : list) {
+			if(user.getUsername().equals(username)) {
+				return null;
+			}
+		} 
 		return userService.createUser(username,password);
 	}
 
