@@ -1,6 +1,5 @@
 package vn.iotstar.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class UserController {
 			@RequestParam(name = "password", required = false) String password ) {
 		List<User> list = userService.findAll();
 		for (User user : list) {
-			if(user.getUsername() == (username)) {
+			if(user.getUsername().toString().equals(username)) {
 				return null;
 			}
 		} 
@@ -64,5 +63,19 @@ public class UserController {
 	public String deleteTask(@PathVariable String id) {
 		userService.deleteById(id);
 		 return "Success";
+	}
+	@PostMapping("remove")
+	public String UnActive(@RequestParam(name = "id", required = false) String id){
+		try {
+			User user = userService.findById(id);
+			user.setIsActive(false);
+			userService.updateUser(user);
+			return "Success";
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			return e.getMessage();
+		}
+		
 	}
 }
