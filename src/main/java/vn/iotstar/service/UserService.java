@@ -78,4 +78,5 @@ public class UserService {
 		entity.setPassword(password);
 		return userRepo.save(entity);
 	}
+	
 }
