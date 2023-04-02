@@ -23,6 +23,14 @@ public class Product {
 	private Integer rating;
 	private Date createat;
 	private Date updateat;
+	private String barcode;
+	
+	public String getBarcode() {
+		return barcode;
+	}
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
 	public String getId() {
 		return id;
 	}

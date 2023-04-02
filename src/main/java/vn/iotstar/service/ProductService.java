@@ -49,4 +49,8 @@ public class ProductService {
 		proRepo.deleteAll();
 	}
 	
+	public List<Product> getProductByBarcode(String barcode){
+		return proRepo.findByBarcode(barcode);
+	}
+	
 }
