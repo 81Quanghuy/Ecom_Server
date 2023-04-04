@@ -3,7 +3,10 @@ package vn.iotstar.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.validation.constraints.NotBlank;
 
 @Document(collection = "User")
 public class User {
@@ -12,9 +15,13 @@ public class User {
 	private String id;
 	private String firstName;
 	private String lastName;
+	@NotBlank
 	private String email;
 	private String phone;
+	
+	@NotBlank
 	private String username;
+	@NotBlank
 	private String password;// mật khẩu mã hóa
 	private String address;
 	private String avatar;
@@ -23,7 +30,24 @@ public class User {
 	private String resetpasswordtoken;
 	private Date createat;
 	private Date updateat;
+	
+	@DBRef
 	private Store stores;
+	
+	
+	public User(@NotBlank String email, @NotBlank String username, @NotBlank String password) {
+		super();
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+	
+	
+	public User() {
+		super();
+	}
+	
+	
 	public String getId() {
 		return id;
 	}
