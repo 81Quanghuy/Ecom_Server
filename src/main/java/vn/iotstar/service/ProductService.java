@@ -7,7 +7,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
+import vn.iotstar.repository.CategoryRepository;
 import vn.iotstar.repository.ProductRepository;
 
 @Service
@@ -15,6 +17,9 @@ public class ProductService {
 
 	@Autowired
 	ProductRepository proRepo;
+	
+	@Autowired
+	CategoryService categoryService;
 
 	public <S extends Product> S save(S entity) {
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
@@ -51,6 +56,10 @@ public class ProductService {
 	
 	public List<Product> getProductByBarcode(String barcode){
 		return proRepo.findByBarcode(barcode);
+	}
+
+	public List<Product> findByCategory(Category category) {
+		return proRepo.findByCategory(category);
 	}
 	
 }

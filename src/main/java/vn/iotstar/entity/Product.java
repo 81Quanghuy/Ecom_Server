@@ -85,12 +85,6 @@ public class Product {
 	public void setListimage(String listimage) {
 		this.listimage = listimage;
 	}
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
-	}
 	public Store getStore() {
 		return store;
 	}
@@ -115,5 +109,12 @@ public class Product {
 	public void setUpdateat(Date updateat) {
 		this.updateat = updateat;
 	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 		
+
 }
