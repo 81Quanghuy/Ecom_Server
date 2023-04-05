@@ -18,8 +18,10 @@ public class UploadFileImages{
 	
 	@PostMapping("upload-images")
 	public String uploadImages(@RequestParam("file") MultipartFile file )throws Exception {
+	
+		String Path_Directory = "/Users/hoangtoannguyen/HCMUTE/Android/Ecom_server/src/main/resources/static/image";
 		
-		String Path_Directory = new ClassPathResource("static/images/").getFile().getAbsolutePath();
+		//String Path_Directory = new ClassPathResource("./static/images/").getFile().getAbsolutePath();
 		
 		String real_path = Path_Directory+File.separator+file.getOriginalFilename();
 		

@@ -3,13 +3,17 @@ package vn.iotstar.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.validation.constraints.NotBlank;
 
 @Document(collection = "Product")
 public class Product {
 
 	@Id
 	private String id;
+	
 	private String name;
 	private String desciption;
 	private Double price;
@@ -18,13 +22,18 @@ public class Product {
 	private Integer sold;
 	private Boolean isselling;
 	private String listimage;
+	
+	@DBRef
 	private Category category;
+	
+	@DBRef
 	private Store store;
 	private Integer rating;
 	private Date createat;
 	private Date updateat;
-	private String barcode;
 	
+	@NotBlank
+	private String barcode;
 	public String getBarcode() {
 		return barcode;
 	}
