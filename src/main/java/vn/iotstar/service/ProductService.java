@@ -1,5 +1,6 @@
 package vn.iotstar.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,9 +60,15 @@ public class ProductService {
 	}
 
 	public List<Product> findByCategory(Category category) {
-		return proRepo.findByCategory(category);
+		Optional<Category> categories = categoryService.findById(category.getId());
+		
+		List<Product> list = proRepo.findAll();
+
+		if(categories.get() != null) {
+			list = proRepo.findByCategory(categories.get());
+		}
+		return list;
 	}
-	
-	
+
 	
 }
