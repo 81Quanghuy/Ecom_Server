@@ -1,11 +1,14 @@
 package vn.iotstar.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.iotstar.entity.ERole;
+import vn.iotstar.entity.Store;
 import vn.iotstar.entity.User;
 import vn.iotstar.repository.UserRepository;
 
@@ -73,7 +76,19 @@ public class UserService {
 
 	public User createUser(String username, String password) {
 		User entity = new User();
+		Date currentDate = new Date();
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		entity.setAddress("TP. Hồ Chí Minh");
+		entity.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
+		entity.setCreateat(currentDate);
+		entity.setUpdateat(currentDate);
+		entity.setEmail("email@gmail.com");
+		entity.setFirstName("Nguyễn Văn");
+		entity.setLastName("A");
+		entity.setIsActive(true);
+		entity.setRole(ERole.ROLE_USER.toString());
+		entity.setPhone("0352602596");
+		entity.setResetpasswordtoken(password);
 		entity.setUsername(username);
 		entity.setPassword(password);
 		return userRepo.save(entity);
