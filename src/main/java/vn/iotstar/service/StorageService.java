@@ -19,7 +19,7 @@ public class StorageService {
     @Autowired
     private StorageRepository repository;
 
-    public String uploadImage(MultipartFile file) throws IOException {
+    public ImageData uploadImage(MultipartFile file) throws IOException {
 
     	ImageData entity = new ImageData();
     	entity.setId(UUID.randomUUID().toString().split("-")[0]);
@@ -30,7 +30,7 @@ public class StorageService {
     	
         if (entity != null) {
         	repository.save(entity);
-            return "file uploaded successfully : " + file.getOriginalFilename();
+            return entity;
         }
         return null;
     }

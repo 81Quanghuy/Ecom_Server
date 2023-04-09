@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import vn.iotstar.entity.ImageData;
 import vn.iotstar.service.StorageService;
 
 @RestController
@@ -70,10 +71,9 @@ public class UploadFileImages{
 //	}
 
 	@RequestMapping(value = "/images", method = RequestMethod.POST)
-	public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
-		String uploadImage = service.uploadImage(file);
-		return ResponseEntity.status(HttpStatus.OK)	
-				.body(uploadImage);
+	public ImageData uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
+		ImageData uploadImage = service.uploadImage(file);
+		return uploadImage;
 	}
 
 	@RequestMapping(value = "/images/{fileName}", method = RequestMethod.GET)
