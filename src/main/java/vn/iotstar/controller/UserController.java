@@ -54,9 +54,9 @@ public class UserController {
 
 	}
 
-	@PutMapping
+	@PostMapping("updateUser")
 	public User modifyUser(@RequestBody User User) {
-		return userService.updateUser(User);
+		return userService.save(User);
 	}
 
 	@DeleteMapping("/{id}")
