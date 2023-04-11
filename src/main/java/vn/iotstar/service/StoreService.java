@@ -17,7 +17,6 @@ public class StoreService {
 	StoreRepository storeRepo;
 
 	public <S extends Store> S save(S entity) {
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return storeRepo.save(entity);
 	}
 

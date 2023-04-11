@@ -23,7 +23,7 @@ public class ProductService {
 	CategoryService categoryService;
 
 	public <S extends Product> S save(S entity) {
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		
 		return proRepo.save(entity);
 	}
 

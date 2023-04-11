@@ -17,7 +17,6 @@ public class OrderService {
 	OrderRepository orderRepo;
 
 	public <S extends Order> S save(S entity) {
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return orderRepo.save(entity);
 	}
 

@@ -1,17 +1,13 @@
 package vn.iotstar.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
-import javax.servlet.ServletContext;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -72,8 +68,8 @@ public class UploadFileImages{
 
 	@RequestMapping(value = "/images", method = RequestMethod.POST)
 	public ImageData uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
-		ImageData uploadImage = service.uploadImage(file);
-		return uploadImage;
+		ImageData images = service.uploadImage(file);
+		return images;
 	}
 
 	@RequestMapping(value = "/images/{fileName}", method = RequestMethod.GET)
@@ -82,5 +78,11 @@ public class UploadFileImages{
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.valueOf("image/png"))
 				.body(imageData);
+	}
+	@RequestMapping(value = "/images/delete",method = RequestMethod.POST)
+	public String DeleteImage(@RequestParam("fileName")String fileName) {
+		Optional<ImageData> images = service.findByName(fileName);
+		service.delete(images.get());
+		return "Delete Success Images";
 	}
 }

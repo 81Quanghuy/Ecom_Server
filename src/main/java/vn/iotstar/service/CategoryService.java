@@ -17,7 +17,6 @@ public class CategoryService {
 	CategoryRepository categoryRepo;
 
 	public <S extends Category> S save(S entity) {
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return categoryRepo.save(entity);
 	}
 

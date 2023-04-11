@@ -16,8 +16,8 @@ public class Product {
 	
 	private String name;
 	private String desciption;
-	private Double price;
-	private Double promotionaprice;
+	private Integer price;
+	private Integer promotionaprice;
 	private Integer quantity;
 	private Integer sold;
 	private Boolean isselling;
@@ -28,7 +28,7 @@ public class Product {
 	
 	@DBRef
 	private Store store;
-	private Integer rating;
+	private Double rating;
 	private Date createat;
 	private Date updateat;
 	
@@ -58,16 +58,16 @@ public class Product {
 	public void setDesciption(String desciption) {
 		this.desciption = desciption;
 	}
-	public Double getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	public Double getPromotionaprice() {
+	public Integer getPromotionaprice() {
 		return promotionaprice;
 	}
-	public void setPromotionaprice(Double promotionaprice) {
+	public void setPromotionaprice(Integer promotionaprice) {
 		this.promotionaprice = promotionaprice;
 	}
 	public Integer getQuantity() {
@@ -100,10 +100,10 @@ public class Product {
 	public void setStore(Store store) {
 		this.store = store;
 	}
-	public Integer getRating() {
+	public Double getRating() {
 		return rating;
 	}
-	public void setRating(Integer rating) {
+	public void setRating(Double rating) {
 		this.rating = rating;
 	}
 	public Date getCreateat() {

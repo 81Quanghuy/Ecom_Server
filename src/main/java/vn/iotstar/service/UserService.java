@@ -18,7 +18,7 @@ public class UserService {
 	private UserRepository userRepo;
 
 	public <S extends User> S save(S entity) {
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		
 		return userRepo.save(entity);
 	}
 

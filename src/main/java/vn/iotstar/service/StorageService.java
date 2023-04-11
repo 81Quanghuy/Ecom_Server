@@ -18,8 +18,21 @@ public class StorageService {
 
     @Autowired
     private StorageRepository repository;
+    
 
-    public ImageData uploadImage(MultipartFile file) throws IOException {
+    public Optional<ImageData> findByName(String fileName) {
+		return repository.findByName(fileName);
+	}
+
+	public void delete(ImageData entity) {
+		repository.delete(entity);
+	}
+
+	public void deleteById(String id) {
+		repository.deleteById(id);
+	}
+
+	public ImageData uploadImage(MultipartFile file) throws IOException {
 
     	ImageData entity = new ImageData();
     	entity.setId(UUID.randomUUID().toString().split("-")[0]);
