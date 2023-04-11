@@ -59,9 +59,8 @@ public class UserService {
 		existingUser.setAvatar(userRequest.getAvatar());
 		existingUser.setCreateat(userRequest.getCreateat());
 		existingUser.setEmail(userRequest.getEmail());
-		existingUser.setFirstName(userRequest.getFirstName());
+		existingUser.setFullName(userRequest.getFullName());
 		existingUser.setIsActive(userRequest.getIsActive());
-		existingUser.setLastName(userRequest.getLastName());
 		existingUser.setPassword(userRequest.getPassword());
 		existingUser.setPhone(userRequest.getPhone());
 		existingUser.setStores(userRequest.getStores());
@@ -83,8 +82,7 @@ public class UserService {
 		entity.setCreateat(currentDate);
 		entity.setUpdateat(currentDate);
 		entity.setEmail("email@gmail.com");
-		entity.setFirstName("Nguyễn Văn");
-		entity.setLastName("A");
+		entity.setFullName("Nguyễn Văn A");
 		entity.setIsActive(true);
 		entity.setRole(ERole.ROLE_USER.toString());
 		entity.setPhone("0352602596");

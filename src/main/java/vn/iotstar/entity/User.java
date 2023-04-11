@@ -13,8 +13,7 @@ public class User {
 
 	@Id
 	private String id;
-	private String firstName;
-	private String lastName;
+	private String fullName;
 	@NotBlank
 	private String email;
 	private String phone;
@@ -54,18 +53,17 @@ public class User {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getFirstName() {
-		return firstName;
+
+	public String getFullName() {
+		return fullName;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+
+
 	public String getEmail() {
 		return email;
 	}
