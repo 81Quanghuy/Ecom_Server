@@ -10,17 +10,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Order")
 public class Order {
 	@Id
-	private String id;
-	private User user;
-	private Store store;
-	private Delivery delivery;
-	private String address;
-	private String phone;
-	private String status; // Trang thai don hang
-	private Float price;
-	private Date createat;
-	private Date updateat;
-	private Boolean isactive;
+		private String id;
+		private User user;
+		private Store store;
+		private Delivery delivery;
+		private String address;
+		private String phone;
+		private String status; // Trang thai don hang 1.Bị hủy 2. Đang giao 3. Đã giao
+		
+		private Float price;
+		private Date createat;
+		private Date updateat;
+		private Boolean isactive;
 	public String getId() {
 		return id;
 	}
