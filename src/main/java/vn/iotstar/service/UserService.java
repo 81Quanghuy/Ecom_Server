@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.ERole;
-import vn.iotstar.entity.Store;
 import vn.iotstar.entity.User;
 import vn.iotstar.repository.UserRepository;
 
@@ -63,7 +62,6 @@ public class UserService {
 		existingUser.setIsActive(userRequest.getIsActive());
 		existingUser.setPassword(userRequest.getPassword());
 		existingUser.setPhone(userRequest.getPhone());
-		existingUser.setStores(userRequest.getStores());
 		existingUser.setUsername(userRequest.getUsername());
 		existingUser.setUpdateat(userRequest.getUpdateat());
 

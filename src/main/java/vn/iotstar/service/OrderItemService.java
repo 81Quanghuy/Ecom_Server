@@ -1,15 +1,14 @@
 package vn.iotstar.service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Order;
 import vn.iotstar.entity.OrderItem;
+import vn.iotstar.entity.StatusOrder;
 import vn.iotstar.repository.OrderItemRepository;
 
 @Service
@@ -27,7 +26,7 @@ public class OrderItemService {
 		List<OrderItem> listHuy = null ;
 		List<OrderItem> list = orderItemRepo.findByOrder(order);
 		for (OrderItem orderItem : list) {
-			if(orderItem.getOrder().getStatus().toString()==("Bị hủy")) {
+			if(orderItem.getOrder().getStatusOrder()==(StatusOrder.HUY)) {
 				listHuy.add(orderItem);
 			}
 		}
@@ -40,7 +39,7 @@ public class OrderItemService {
 		List<OrderItem> listHuy = null ;
 		List<OrderItem> list = orderItemRepo.findByOrder(order);
 		for (OrderItem orderItem : list) {
-			if(orderItem.getOrder().getStatus()=="Đang giao") {
+			if(orderItem.getOrder().getStatusOrder()==(StatusOrder.DANGGIAO)) {
 				listHuy.add(orderItem);
 			}
 		}
@@ -52,7 +51,19 @@ public class OrderItemService {
 		List<OrderItem> listHuy = null ;
 		List<OrderItem> list = orderItemRepo.findByOrder(order);
 		for (OrderItem orderItem : list) {
-			if(orderItem.getOrder().getStatus()=="Đã giao") {
+			if(orderItem.getOrder().getStatusOrder()==StatusOrder.DAGIAO) {
+				listHuy.add(orderItem);
+			}
+		}
+		return listHuy;
+	}
+	
+	@SuppressWarnings("null")
+	public List<OrderItem> getListChoXacNhan(Order order){
+		List<OrderItem> listHuy = null ;
+		List<OrderItem> list = orderItemRepo.findByOrder(order);
+		for (OrderItem orderItem : list) {
+			if(orderItem.getOrder().getStatusOrder()==(StatusOrder.CHOXACNHAN)) {
 				listHuy.add(orderItem);
 			}
 		}

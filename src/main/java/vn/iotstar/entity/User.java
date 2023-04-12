@@ -2,8 +2,8 @@ package vn.iotstar.entity;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +19,7 @@ public class User {
 	private String phone;
 	
 	@NotBlank
+	@UniqueElements
 	private String username;
 	@NotBlank
 	private String password;// mật khẩu mã hóa
@@ -27,11 +28,11 @@ public class User {
 	private String role;
 	private Boolean isActive;
 	private String resetpasswordtoken;
+	
+	
 	private Date createat;
 	private Date updateat;
 	
-	@DBRef
-	private Store stores;
 	
 	
 	public User(@NotBlank String email, @NotBlank String username, @NotBlank String password) {
@@ -45,7 +46,6 @@ public class User {
 	public User() {
 		super();
 	}
-	
 	
 	public String getId() {
 		return id;
@@ -129,12 +129,6 @@ public class User {
 	}
 	public void setUpdateat(Date updateat) {
 		this.updateat = updateat;
-	}
-	public Store getStores() {
-		return stores;
-	}
-	public void setStores(Store stores) {
-		this.stores = stores;
 	}
 	
 }

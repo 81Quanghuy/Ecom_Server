@@ -12,11 +12,9 @@ public class Order {
 	@Id
 		private String id;
 		private User user;
-		private Store store;
-		private Delivery delivery;
 		private String address;
 		private String phone;
-		private String status; // Trang thai don hang 1.Bị hủy 2. Đang giao 3. Đã giao
+		private StatusOrder StatusOrder; // Trang thai don hang 0.Cần xác nhận 1.Bị hủy 2. Đang giao 3. Đã giao
 		
 		private Float price;
 		private Date createat;
@@ -34,18 +32,6 @@ public class Order {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Store getStore() {
-		return store;
-	}
-	public void setStore(Store store) {
-		this.store = store;
-	}
-	public Delivery getDelivery() {
-		return delivery;
-	}
-	public void setDelivery(Delivery delivery) {
-		this.delivery = delivery;
-	}
 	public String getAddress() {
 		return address;
 	}
@@ -57,12 +43,6 @@ public class Order {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	public Float getPrice() {
 		return price;
@@ -87,6 +67,12 @@ public class Order {
 	}
 	public void setIsactive(Boolean isactive) {
 		this.isactive = isactive;
+	}
+	public StatusOrder getStatusOrder() {
+		return StatusOrder;
+	}
+	public void setStatusOrder(StatusOrder statusOrder) {
+		StatusOrder = statusOrder;
 	}
 
 }

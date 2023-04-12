@@ -26,8 +26,6 @@ public class Product {
 	@DBRef
 	private Category category;
 	
-	@DBRef
-	private Store store;
 	private Double rating;
 	private Date createat;
 	private Date updateat;
@@ -93,12 +91,6 @@ public class Product {
 	}
 	public void setListimage(String listimage) {
 		this.listimage = listimage;
-	}
-	public Store getStore() {
-		return store;
-	}
-	public void setStore(Store store) {
-		this.store = store;
 	}
 	public Double getRating() {
 		return rating;
