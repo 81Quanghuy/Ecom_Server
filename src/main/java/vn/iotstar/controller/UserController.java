@@ -47,7 +47,7 @@ public class UserController {
 		return userService.findAll();
 	}
 
-	@GetMapping("/getUserById")
+	@PostMapping("/getUserById")
 	public User getUser(@RequestParam(name = "id", required = false) String id) {
 		return userService.findById(id);
 
