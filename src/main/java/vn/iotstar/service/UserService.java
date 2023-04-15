@@ -36,6 +36,11 @@ public class UserService {
 	public long count() {
 		return userRepo.count();
 	}
+	
+
+	public List<User> findByIsActive(Boolean isActive) {
+		return userRepo.findByIsActive(isActive);
+	}
 
 	public void deleteById(String id) {
 		userRepo.deleteById(id);
