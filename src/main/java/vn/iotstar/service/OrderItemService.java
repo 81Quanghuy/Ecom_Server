@@ -21,6 +21,10 @@ public class OrderItemService {
 		return orderItemRepo.save(entity);
 	}
 
+	public List<OrderItem> findByOrder(Order order) {
+		return orderItemRepo.findByOrder(order);
+	}
+
 	@SuppressWarnings("null")
 	public List<OrderItem> getListHuy(Order order){
 		List<OrderItem> listHuy = null ;

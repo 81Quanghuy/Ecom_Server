@@ -1,7 +1,6 @@
 package vn.iotstar.controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,7 +37,15 @@ public class ProductController {
 	public List<Product> getProductAll() {
 		return product.findAll();
 	}
-	
+	@PostMapping("active")
+	public Product producChangeActive(@RequestParam(name = "id", required = false) String id,
+			@RequestParam(name = "isselling", required = false) Boolean isselling) {
+		Optional<Product> product1 = product.findById(id);
+		Product entity = product1.get();
+		entity.setIsselling(isselling);
+		return product.save(entity);
+		
+	}
 	@GetMapping("/my/{barcode}")
 	public ResponseEntity<Product> getProductByBarcode(@PathVariable("barcode") String barcode) {
 		  List<Product> lists = product.getProductByBarcode(barcode);
@@ -64,36 +71,45 @@ public class ProductController {
 		return product.findByCategory(category);
 	}
 	//,@RequestParam("category")Category category 
+	
 	@PostMapping("add")
-	public Product addProduct(@RequestParam("name")String name,@RequestParam("desciption")String desciption
-			,@RequestParam("price")Integer price ,@RequestParam("promotionaprice")Integer promotionaprice  
-			,@RequestParam("quantity")Integer quantity ,@RequestParam("sold")Integer sold ,
-			@RequestParam("barcode")String barcode 
-			,@RequestParam("image")MultipartFile file) throws IOException {
-		Date date = new Date();
-		ImageData images = storage.uploadImage(file);
-		Product entity = new Product();
+	public Product add(@RequestBody Product product1) {
+		Product entity = product1;
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
-		entity.setName(name);
-		entity.setDesciption(desciption);
-		entity.setPrice(price);
-		entity.setPromotionaprice(promotionaprice);
-		entity.setQuantity(quantity);
-		entity.setSold(sold);
-		entity.setIsselling(true);
-		entity.setListimage("https://ecomserver.up.railway.app/images/"+images.getName());		
-		//entity.setCategory(category);
-		entity.setRating(0.0);
-		entity.setCreateat(date);
-		entity.setUpdateat(date);
-		entity.setBarcode(barcode);		
-		product.save(entity);
-		return entity;
+		return product.save(entity);
 	}
+	
+//	public Product addProduct(@RequestParam("name")String name,@RequestParam("desciption")String desciption
+//			,@RequestParam("price")Integer price ,@RequestParam("promotionaprice")Integer promotionaprice  
+//			,@RequestParam("quantity")Integer quantity ,@RequestParam("sold")Integer sold ,
+//			@RequestParam("barcode")String barcode 
+//			,@RequestParam("image")MultipartFile file) throws IOException {
+//		Date date = new Date();
+//		ImageData images = storage.uploadImage(file);
+//		Product entity = new Product();
+//		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+//		entity.setName(name);
+//		entity.setDesciption(desciption);
+//		entity.setPrice(price);
+//		entity.setPromotionaprice(promotionaprice);
+//		entity.setQuantity(quantity);
+//		entity.setSold(sold);
+//		entity.setIsselling(true);
+//		entity.setListimage("https://ecomserver.up.railway.app/images/"+images.getName());		
+//		//entity.setCategory(category);
+//		entity.setRating(0.0);
+//		entity.setCreateat(date);
+//		entity.setUpdateat(date);
+//		entity.setBarcode(barcode);		
+//		product.save(entity);
+//		return entity;
+//	}
+	
 	@PostMapping("upload")
 	public Product updateProduct(@RequestBody Product productEntity) {		
 		return product.save(productEntity);
 	}
+	
 	@PostMapping("uploadImage")
 	public Product uploadImageProduct(@RequestParam("id")String id,@RequestParam("image")MultipartFile file) throws IOException {
 		Optional<Product> entity = product.findById(id);
@@ -102,9 +118,15 @@ public class ProductController {
 		product.save(entity.get());
 		return entity.get();
 	}
+	
 	@PostMapping("delete")
 	public String deleteProduct(@RequestParam("id") String id) {
 		product.deleteById(id);
 		return "Success";
+	}
+	
+	@PostMapping("listbyCategory")
+	public List<Product> getListByCate(@RequestBody Category category){
+		return product.findByCategory(category);
 	}
 }

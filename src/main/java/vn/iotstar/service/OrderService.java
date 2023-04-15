@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Order;
+import vn.iotstar.entity.StatusOrder;
 import vn.iotstar.repository.OrderRepository;
 
 @Service
@@ -17,6 +18,10 @@ public class OrderService {
 
 	public <S extends Order> S save(S entity) {
 		return orderRepo.save(entity);
+	}
+
+	public List<Order> findByStatusOrder(StatusOrder statusOrder) {
+		return orderRepo.findByStatusOrder(statusOrder);
 	}
 
 	public <S extends Order> S insert(S entity) {
