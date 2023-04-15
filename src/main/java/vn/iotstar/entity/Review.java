@@ -16,6 +16,14 @@ public class Review {
 	private Integer rating;
 	private Date createat;
 	private Date updateat;
+	private String productid;
+	
+	public String getProductid() {
+		return productid;
+	}
+	public void setProductid(String productid) {
+		this.productid = productid;
+	}
 	public String getId() {
 		return id;
 	}
