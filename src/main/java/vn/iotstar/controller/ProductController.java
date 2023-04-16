@@ -130,6 +130,7 @@ public class ProductController {
 	@PostMapping("/insert")
 	public Product insertProduct(@RequestBody Product pro) {
 		return product.save(pro);
+	}
 
 	@PostMapping("listbyCategory")
 	public List<Product> getListByCate(@RequestBody Category category){
