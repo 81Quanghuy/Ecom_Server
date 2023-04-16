@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Review;
 import vn.iotstar.service.ReviewService;
 
@@ -27,6 +28,11 @@ public class ReviewController {
 	@PostMapping("/add")
 	public Review addOrderItem(@RequestBody Review reiReview) {
 		return review.save(reiReview);
+	}
+	
+	@PostMapping("/product")
+	public List<Review> getByProduct(@RequestBody Product product) {
+		return review.findByProduct(product);
 	}
 	
 }
