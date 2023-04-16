@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.ImageData;
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Review;
 import vn.iotstar.service.ProductService;
 import vn.iotstar.service.StorageService;
 
@@ -125,8 +126,14 @@ public class ProductController {
 		return "Success";
 	}
 	
+
+	@PostMapping("/insert")
+	public Product insertProduct(@RequestBody Product pro) {
+		return product.save(pro);
+
 	@PostMapping("listbyCategory")
 	public List<Product> getListByCate(@RequestBody Category category){
 		return product.findByCategory(category);
+
 	}
 }
