@@ -1,6 +1,7 @@
 package vn.iotstar.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,20 +19,16 @@ public class OrderItemController {
 	@Autowired
 	OrderItemService service;
 
-	@PostMapping("/getHuy")
-	public List<OrderItem> getListHuy(@RequestBody Order order){
-		return service.getListHuy(order);
-	}
-	@PostMapping("/getDangGiao")
-	public List<OrderItem> getListDangGiao(@RequestBody Order order){
-		return service.getListDangGiao(order);
-	}
-	@PostMapping("/getDaGiao")
-	public List<OrderItem> getListDaGiao(@RequestBody Order order){
-		return service.getListDaGiao(order);
-	}
+		
 	@PostMapping("/add")
 	public OrderItem addOrderItem(@RequestBody OrderItem orderItem) {
+		OrderItem entity = orderItem;
+		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return service.save(orderItem);
 	}
+	@PostMapping("get")
+	public List<OrderItem> getAllList(@RequestBody Order order){
+		return service.findByOrder(order);
+	}
+
 }

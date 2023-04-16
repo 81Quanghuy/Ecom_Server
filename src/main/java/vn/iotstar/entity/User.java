@@ -28,8 +28,6 @@ public class User {
 	private String role;
 	private Boolean isActive;
 	private String resetpasswordtoken;
-	
-	
 	private Date createat;
 	private Date updateat;
 	

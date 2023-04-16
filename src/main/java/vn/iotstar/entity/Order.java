@@ -5,21 +5,19 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
-
 @Document(collection = "Order")
 public class Order {
+	
 	@Id
-		private String id;
-		private User user;
-		private String address;
-		private String phone;
-		private StatusOrder StatusOrder; // Trang thai don hang 0.Cần xác nhận 1.Bị hủy 2. Đang giao 3. Đã giao
-		
-		private Float price;
-		private Date createat;
-		private Date updateat;
-		private Boolean isactive;
+	private String id;
+	private User user;
+	private String address;
+	private String phone;
+	private StatusOrder statusOrder; // Trang thai don hang 0.Cần xác nhận 1.Bị hủy 2. Đang giao 3. Đã giao
+	private Float price;
+	private Date createat;
+	private Date updateat;
+	private Boolean isactive;
 	public String getId() {
 		return id;
 	}
@@ -69,10 +67,10 @@ public class Order {
 		this.isactive = isactive;
 	}
 	public StatusOrder getStatusOrder() {
-		return StatusOrder;
+		return statusOrder;
 	}
 	public void setStatusOrder(StatusOrder statusOrder) {
-		StatusOrder = statusOrder;
+		this.statusOrder = statusOrder;
 	}
 
 }
