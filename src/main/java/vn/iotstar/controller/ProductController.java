@@ -80,6 +80,7 @@ public class ProductController {
 		return product.save(entity);
 	}
 	
+	
 //	public Product addProduct(@RequestParam("name")String name,@RequestParam("desciption")String desciption
 //			,@RequestParam("price")Integer price ,@RequestParam("promotionaprice")Integer promotionaprice  
 //			,@RequestParam("quantity")Integer quantity ,@RequestParam("sold")Integer sold ,
@@ -131,10 +132,10 @@ public class ProductController {
 	public Product insertProduct(@RequestBody Product pro) {
 		return product.save(pro);
 	}
+	
 
-	@PostMapping("listbyCategory")
+	@PostMapping("category")
 	public List<Product> getListByCate(@RequestBody Category category){
 		return product.findByCategory(category);
-
 	}
 }
