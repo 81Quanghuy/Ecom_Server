@@ -34,6 +34,12 @@ public class UserController {
 			if(user.getUsername().toString().equals(username)) {
 				return null;
 			}
+//			if(user.getPhone().toString().equals(entity.getPhone())) {
+//				return null;
+//			}
+//			if(user.getEmail().toString().equals(entity.getEmail())) {
+//				return null;
+//			}
 		} 
 		return userService.createUser(username,password);
 	}
@@ -57,6 +63,18 @@ public class UserController {
 	@PostMapping("updateUser")
 	public User modifyUser(@RequestBody User user) {
 		User entity = user;
+		List<User> list = userService.findAll();
+		for (User user1 : list) {
+			if(user1.getUsername().toString().equals(entity.getUsername())) {
+				return null;
+			}
+			if(user1.getPhone().toString().equals(entity.getPhone())) {
+				return null;
+			}
+			if(user1.getEmail().toString().equals(entity.getEmail())) {
+				return null;
+			}
+		} 
 		Date currentDate = new Date();
 		entity.setUpdateat(currentDate);
 		return userService.save(entity);
@@ -118,6 +136,18 @@ public class UserController {
 		entity.setResetpasswordtoken(user.getPassword());
 		entity.setCreateat(currentDate);
 		entity.setUpdateat(currentDate);
+		List<User> list = userService.findAll();
+		for (User user1 : list) {
+			if(user1.getUsername().toString().equals(entity.getUsername())) {
+				return null;
+			}
+			if(user1.getPhone().toString().equals(entity.getPhone())) {
+				return null;
+			}
+			if(user1.getEmail().toString().equals(entity.getEmail())) {
+				return null;
+			}
+		} 
 		return userService.save(entity);
 	}
 	@PostMapping("active")
