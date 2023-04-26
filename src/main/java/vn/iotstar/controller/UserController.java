@@ -1,5 +1,6 @@
 package vn.iotstar.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.ERole;
+import vn.iotstar.entity.OrderItem;
 import vn.iotstar.entity.User;
 import vn.iotstar.service.UserService;
 
@@ -60,11 +62,21 @@ public class UserController {
 
 	}
 
-	@PostMapping("updateUser")
+	@PostMapping("/updateUser")
 	public User modifyUser(@RequestBody User user) {
+		//Khai báo User,Danh sách User
 		User entity = user;
 		List<User> list = userService.findAll();
-		for (User user1 : list) {
+		List<User> listExpUser = new ArrayList<User>();
+		
+		// Tìm các User còn lại
+		for(User us :list) {
+			if(!us.getId().toString().equals(user.getId())) {
+				listExpUser.add(us);
+			}
+		}
+		// Hàm điều kiện 
+		for (User user1 : listExpUser) {
 			if(user1.getUsername().toString().equals(entity.getUsername())) {
 				return null;
 			}
