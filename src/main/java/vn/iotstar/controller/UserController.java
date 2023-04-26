@@ -83,6 +83,22 @@ public class UserController {
 		}
 		
 	}
+	@PostMapping("active-run")
+	public String Active(@RequestParam(name = "id", required = false) String id){
+		try {
+			User user = userService.findById(id);
+			Date currentDate = new Date();
+			user.setIsActive(true);	
+			user.setUpdateat(currentDate);
+			userService.updateUser(user);
+			return "Success";
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			return e.getMessage();
+		}
+		
+	}
 	@PostMapping("add")
 	public User AddUser(@RequestBody User user) {
 		User entity = user;
