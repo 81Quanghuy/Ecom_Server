@@ -88,7 +88,13 @@ public class UserController {
 		try {
 			User user = userService.findById(id);
 			Date currentDate = new Date();
-			user.setIsActive(true);	
+			if(user.getIsActive()) {
+				user.setIsActive(false);	
+			}
+			else {
+				user.setIsActive(true);	
+			}
+			
 			user.setUpdateat(currentDate);
 			userService.updateUser(user);
 			return "Success";
