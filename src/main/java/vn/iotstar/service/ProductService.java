@@ -67,5 +67,10 @@ public class ProductService {
 		return list;
 	}
 
+	public List<Product> findTop3ByOrderBySoldDesc() {
+		return proRepo.findTop3ByOrderBySoldDesc();
+	}
+
+	
 	
 }

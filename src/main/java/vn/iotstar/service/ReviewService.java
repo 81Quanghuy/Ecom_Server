@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Review;
+import vn.iotstar.entity.User;
 import vn.iotstar.repository.ReviewRepository;
 
 @Service
@@ -46,6 +47,10 @@ public class ReviewService {
 
 	public List<Review> findByProduct(Product product) {
 		return reviewRepo.findByProduct(product);
+	}
+
+	public List<Review> findByUser(User user) {
+		return reviewRepo.findByUser(user);
 	}
 	
 	

@@ -38,6 +38,12 @@ public class ProductController {
 	public List<Product> getProductAll() {
 		return product.findAll();
 	}
+	
+	@GetMapping("gettop3")
+	public List<Product> getTop3() {
+		return product.findTop3ByOrderBySoldDesc();
+	}
+	
 	@PostMapping("active")
 	public Product producChangeActive(@RequestParam(name = "id", required = false) String id,
 			@RequestParam(name = "isselling", required = false) Boolean isselling) {
