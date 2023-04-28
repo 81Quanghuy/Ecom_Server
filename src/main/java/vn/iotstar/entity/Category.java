@@ -14,6 +14,8 @@ public class Category {
 	private Date createat;
 	private Date updateat;
 	private Boolean isdeleted;
+	
+
 	public String getId() {
 		return id;
 	}

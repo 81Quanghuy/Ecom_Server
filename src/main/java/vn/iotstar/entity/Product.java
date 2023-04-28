@@ -13,7 +13,6 @@ public class Product {
 
 	@Id
 	private String id;
-	
 	private String name;
 	private String desciption;
 	private Integer price;
@@ -22,10 +21,7 @@ public class Product {
 	private Integer sold;
 	private Boolean isselling;
 	private String listimage;
-	
-	@DBRef
 	private Category category;
-	
 	private Double rating;
 	private Date createat;
 	private Date updateat;
