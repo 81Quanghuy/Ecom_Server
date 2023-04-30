@@ -138,7 +138,7 @@ public class UserController {
 	@PostMapping("add")
 	public User AddUser(@RequestBody User user) {
 		User entity = user;
-		if(user.getAvatar() ==null) {
+		if(user.getAvatar()=="") {
 			user.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
 		}
 		Date currentDate = new Date();

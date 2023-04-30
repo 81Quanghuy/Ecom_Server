@@ -48,4 +48,12 @@ public class OrderController {
 		service.delete(order);
 		return "Succes";
 	}
+	@PostMapping("updateStatusAll")
+	public List<Order> updateStatus(@RequestParam(name = "status",required = false)StatusOrder Status) {
+		List<Order> list = service.findByStatusOrder(Status);
+		for(Order order: list) {
+			order.setStatusOrder(StatusOrder.DANGGIAO);
+		}
+		return list;
+	}
 }
