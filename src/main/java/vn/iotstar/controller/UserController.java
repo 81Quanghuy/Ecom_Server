@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.OrderItem;
 import vn.iotstar.entity.User;
+import vn.iotstar.model.WhislistModel;
 import vn.iotstar.service.UserService;
 
 @RestController
@@ -91,6 +92,7 @@ public class UserController {
 		entity.setUpdateat(currentDate);
 		return userService.save(entity);
 	}
+	
 
 	@PostMapping("/delete")
 	public String deleteTask(@RequestParam(name  = "id", required = false) String id) {
