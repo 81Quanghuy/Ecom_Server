@@ -35,7 +35,13 @@ public class OrderItemController {
 	@PostMapping("get")
 	public List<OrderItem> getAllList(@RequestParam(name = "id") String id){
 		Optional<Order> entity = orderSerive.findById(id);
-		return service.findByOrder(entity.get());
+		System.out.print(entity.get().getStatusOrder());
+		if(entity.get()!= null) {
+			List<OrderItem> list = service.findByOrder(entity.get());
+			return list;
+		}
+		
+		return null;
 	}
 
 	@SuppressWarnings("null")

@@ -1,7 +1,8 @@
 package vn.iotstar.service;
 
-
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,12 +16,11 @@ import vn.iotstar.util.ImageUtils;
 
 @Service
 public class StorageService {
-	
-    @Autowired
-    private StorageRepository repository;
-    
 
-    public Optional<ImageData> findByName(String fileName) {
+	@Autowired
+	private StorageRepository repository;
+
+	public Optional<ImageData> findByName(String fileName) {
 		return repository.findByName(fileName);
 	}
 
@@ -35,23 +35,30 @@ public class StorageService {
 	@SuppressWarnings("unused")
 	public ImageData uploadImage(MultipartFile file) throws IOException {
 
-    	ImageData entity = new ImageData();
-    	entity.setId(UUID.randomUUID().toString().split("-")[0]);
-    	entity.setName(file.getOriginalFilename());
-    	entity.setType(file.getContentType());
-    	entity.setImageData(ImageUtils.compressImage(file.getBytes()));
-    	
-    	
-        if (entity != null) {
-        	repository.save(entity);
-            return entity;
-        }
-        return null;
-    }
+		Boolean Flag = false;
+		ImageData entity = new ImageData();
+		List<ImageData> list = repository.findAll();
 
-    public byte[] downloadImage(String fileName){
-        Optional<ImageData> dbImageData = repository.findByName(fileName);
-        byte[] images=ImageUtils.decompressImage(dbImageData.get().getImageData());
-        return images;
-    }
+		for (ImageData imageData : list) {
+			if (file.getOriginalFilename().equals(imageData.getName())) {
+				Flag = true;
+				break;
+			}
+		}
+		if (!Flag) {
+			entity.setId(UUID.randomUUID().toString().split("-")[0]);
+			entity.setName(file.getOriginalFilename());
+			entity.setType(file.getContentType());
+			entity.setImageData(ImageUtils.compressImage(file.getBytes()));
+			repository.save(entity);
+			return entity;
+		}
+		return null;
+	}
+
+	public byte[] downloadImage(String fileName) {
+		Optional<ImageData> dbImageData = repository.findByName(fileName);
+		byte[] images = ImageUtils.decompressImage(dbImageData.get().getImageData());
+		return images;
+	}
 }
