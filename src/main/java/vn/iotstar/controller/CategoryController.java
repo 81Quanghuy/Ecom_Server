@@ -1,6 +1,7 @@
 package vn.iotstar.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -49,29 +50,34 @@ public class CategoryController {
 			}
 		}
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		Date date = new Date();
+		entity.setCreateat(date);
+		entity.setUpdateat(date);
 		return cate.save(entity);
 	}
 	@PostMapping("update")
 	public Category update(@RequestBody Category category) {
-		return cate.save(category);
+		List<Category> list =cate.findAll();
+		List<Category> initList = new  ArrayList<Category>();
+		for (Category category2 : list) {
+			if(!category2.getId().toString().equals(category.getId())) {
+				initList.add(category2);
+			}
+		}
+		for (Category category2 : initList) {
+			if(category2.getName().toString().equals(category.getName())) {
+				return null;
+			}
+		}
+		Category entity = category;
+		Date date = new Date();
+		entity.setUpdateat(date);
+		return cate.save(entity);
 	}
 
 	@PostMapping("delete")
 	public String delete(@RequestParam(name = "id", required = false) String id) {
-		List<Category> list = cate.findAll();
-		Boolean flag= false;
-		for (Category category : list) {
-			if(category.getId().equals(id)) {
-				flag = true;
-				break;
-			}
-		}
-		if(flag) {
-			cate.deleteById(id);
-			 return "Success";
-		}
-		else {
-			return null;
-		}
+		cate.deleteById(id);
+		 return "Success";
 	}
 }
