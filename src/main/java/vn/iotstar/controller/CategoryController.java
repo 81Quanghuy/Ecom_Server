@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
-import vn.iotstar.entity.User;
 import vn.iotstar.service.CategoryService;
 import vn.iotstar.service.ProductService;
 
@@ -83,16 +82,19 @@ public class CategoryController {
 	}
 
 	@PostMapping("delete")
-	public String delete(@RequestParam(name = "id", required = false) String id) {
+	public Category delete(@RequestParam(name = "id", required = false) String id) {
 		Optional<Category> entity = cate.findById(id);
 		if (entity != null) {
-
+			Category category2 = entity.get();
 			List<Product> list = productService.findByCategory(entity.get());
 			if (list.size() == 0) {
+
 				cate.delete(entity.get());
-				return "Succes";
+
+				return category2;
 			} else {
-				return"Category đang có sản phẩm";
+				category2.setName("Category đang có sản phẩm");
+				return category2;
 			}
 		} else {
 			return null;
