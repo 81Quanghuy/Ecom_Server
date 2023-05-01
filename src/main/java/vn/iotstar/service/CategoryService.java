@@ -19,6 +19,10 @@ public class CategoryService {
 		return categoryRepo.save(entity);
 	}
 
+	public void delete(Category entity) {
+		categoryRepo.delete(entity);
+	}
+
 	public <S extends Category> S insert(S entity) {
 		return categoryRepo.insert(entity);
 	}
