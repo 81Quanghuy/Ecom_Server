@@ -97,43 +97,12 @@ public class ProductController {
 		return product.findById(id);
 	}
 	
-	//,@RequestParam("category")Category category 
 	
-	@PostMapping("add")
-	public Product add(@RequestBody Product product1) {
-		Product entity = product1;
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
-		return product.save(entity);
-	}
-	
-//	public Product addProduct(@RequestParam("name")String name,@RequestParam("desciption")String desciption
-//			,@RequestParam("price")Integer price ,@RequestParam("promotionaprice")Integer promotionaprice  
-//			,@RequestParam("quantity")Integer quantity ,@RequestParam("sold")Integer sold ,
-//			@RequestParam("barcode")String barcode 
-//			,@RequestParam("image")MultipartFile file) throws IOException {
-//		Date date = new Date();
-//		ImageData images = storage.uploadImage(file);
-//		Product entity = new Product();
-//		entity.setId(UUID.randomUUID().toString().split("-")[0]);
-//		entity.setName(name);
-//		entity.setDesciption(desciption);
-//		entity.setPrice(price);
-//		entity.setPromotionaprice(promotionaprice);
-//		entity.setQuantity(quantity);
-//		entity.setSold(sold);
-//		entity.setIsselling(true);
-//		entity.setListimage("https://ecomserver.up.railway.app/images/"+images.getName());		
-//		//entity.setCategory(category);
-//		entity.setRating(0.0);
-//		entity.setCreateat(date);
-//		entity.setUpdateat(date);
-//		entity.setBarcode(barcode);		
-//		product.save(entity);
-//		return entity;
-//	}
-	
-	@PostMapping("upload")
-	public Product updateProduct(@RequestBody Product productEntity) {		
+	@PostMapping("notify")
+	public Product updateProduct(@RequestBody Product productEntity) {	
+		if(productEntity.getId()==null) {
+			productEntity.setId(UUID.randomUUID().toString().split("-")[0]);
+		}
 		return product.save(productEntity);
 	}
 	
@@ -150,12 +119,6 @@ public class ProductController {
 	public String deleteProduct(@RequestParam("id") String id) {
 		product.deleteById(id);
 		return "Success";
-	}
-	
-
-	@PostMapping("/insert")
-	public Product insertProduct(@RequestBody Product pro) {
-		return product.save(pro);
 	}
 	
 
