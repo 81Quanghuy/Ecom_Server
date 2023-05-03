@@ -27,6 +27,10 @@ public class CategoryService {
 		return categoryRepo.insert(entity);
 	}
 
+	public List<Category> findByName(String name) {
+		return categoryRepo.findByName(name);
+	}
+
 	public List<Category> findAll() {
 		return categoryRepo.findAll();
 	}

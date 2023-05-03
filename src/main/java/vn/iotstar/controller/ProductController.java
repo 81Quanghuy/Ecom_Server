@@ -97,10 +97,6 @@ public class ProductController {
 		return product.findById(id);
 	}
 	
-	@PostMapping("byCate")
-	public List<Product> getProductByCategory(@RequestBody Category category){
-		return product.findByCategory(category);
-	}
 	//,@RequestParam("category")Category category 
 	
 	@PostMapping("add")
@@ -163,8 +159,8 @@ public class ProductController {
 	}
 	
 
-	@PostMapping("category")
-	public List<Product> getListByCate(@RequestBody Category category){
-		return product.findByCategory(category);
+	@PostMapping("categoryName")
+	public List<Product> getListByCate(@RequestParam("name") String name){
+		return product.findByCategory(name);
 	}
 }
