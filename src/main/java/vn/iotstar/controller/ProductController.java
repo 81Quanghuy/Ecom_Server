@@ -102,6 +102,7 @@ public class ProductController {
 	public Product updateProduct(@RequestBody Product productEntity) {	
 		if(productEntity.getId()==null) {
 			productEntity.setId(UUID.randomUUID().toString().split("-")[0]);
+			productEntity.setRating(0.0);
 		}
 		return product.save(productEntity);
 	}
