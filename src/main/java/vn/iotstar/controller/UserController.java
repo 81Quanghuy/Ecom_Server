@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
+import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.WhislistModel;
 import vn.iotstar.service.UserService;
+import vn.iotstar.service.WishListService;
 
 @RestController
 @RequestMapping("/user")
@@ -25,6 +28,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired 
+	private WishListService wishListService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -104,4 +110,17 @@ public class UserController {
 	public List<User>getUsersActive(@RequestParam(name = "isActive", required = false) Boolean isActive){
 		return userService.findByIsActive(isActive);	
 	}
+	
+	@PostMapping("addWishlist")
+	public Wishlist add(@RequestBody Wishlist category) {
+		Wishlist entity = category;
+		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		return wishListService.save(entity);
+	}
+	@GetMapping("userwishlist")
+	public boolean getWishlistByUser() {
+		
+		return true;
+	}
+	
 }
