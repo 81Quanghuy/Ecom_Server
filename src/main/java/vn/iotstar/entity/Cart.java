@@ -3,6 +3,7 @@ package vn.iotstar.entity;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Cart")
@@ -12,6 +13,8 @@ public class Cart {
 	private User user;
 //	private Date createat;
 //	private Date updateat;
+	
+	@DBRef
 	private List<CartItem> cartItems;
 	public String getId() {
 		return id;

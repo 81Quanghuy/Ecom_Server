@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -107,15 +108,8 @@ public class UserService {
 		entity.setResetpasswordtoken(password);
 		entity.setUsername(username);
 		entity.setPassword(password);
-		//Tạo giỏ hàng
-		
-		Cart cart = new Cart();
-		List<CartItem> cartItem = new ArrayList<>();
-		
-		cart.setUser(entity);
-		cart.setCartItems(cartItem);
-		cart.setId(UUID.randomUUID().toString().split("-")[0]);
-		cartRepository.save(cart);
+
+	
 		
 		return userRepo.save(entity);
 	}
