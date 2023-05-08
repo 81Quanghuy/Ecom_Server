@@ -9,16 +9,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "CartItem")
 public class CartItem {
 	@Id
-	private Integer id;
+	private String id;
 	@DBRef
 	Product product;
 	private Integer count;
 	private String createat;
 	private String updateat;
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public Product getProduct() {
