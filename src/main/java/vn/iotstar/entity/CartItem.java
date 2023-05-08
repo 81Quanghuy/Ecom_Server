@@ -8,25 +8,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CartItem {
 	@Id
 	private Integer id;
-	
 	@DBRef
-	private Cart cart;
-	
 	Product product;
 	private Integer count;
-//	private Date createat;
-//	private Date updateat;
+
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public Cart getCart() {
-		return cart;
-	}
-	public void setCart(Cart cart) {
-		this.cart = cart;
 	}
 	public Product getProduct() {
 		return product;
@@ -40,17 +30,18 @@ public class CartItem {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-//	public Date getCreateat() {
-//		return createat;
-//	}
-//	public void setCreateat(Date createat) {
-//		this.createat = createat;
-//	}
-//	public Date getUpdateat() {
-//		return updateat;
-//	}
-//	public void setUpdateat(Date updateat) {
-//		this.updateat = updateat;
-//	}
+
+	public String getCreateat() {
+		return createat;
+	}
+	public void setCreateat(String createat) {
+		this.createat = createat;
+	}
+	public String getUpdateat() {
+		return updateat;
+	}
+	public void setUpdateat(String updateat) {
+		this.updateat = updateat;
+	}
 	
 }

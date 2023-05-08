@@ -19,9 +19,9 @@ public class CartItemService {
 	@Autowired
 	CartItemRepository cartItemRepository;
 
-	public List<CartItem> findByCart(Cart cart) {
-		return cartItemRepository.findByCart(cart);
-	}
+//	public List<CartItem> findByCart(Cart cart) {
+//		return cartItemRepository.findByCart(cart);
+//	}
 
 	public List<CartItem> findByProduct(Product product) {
 		return cartItemRepository.findByProduct(product);

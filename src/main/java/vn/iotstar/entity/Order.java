@@ -15,8 +15,8 @@ public class Order {
 	private String phone;
 	private StatusOrder statusOrder; // Trang thai don hang 0.Cần xác nhận 1.Bị hủy 2. Đang giao 3. Đã giao
 	private Float price;
-	private Date createat;
-	private Date updateat;
+	private String createat;
+	private String updateat;
 	private Boolean isactive;
 	public String getId() {
 		return id;
@@ -48,16 +48,16 @@ public class Order {
 	public void setPrice(Float price) {
 		this.price = price;
 	}
-	public Date getCreateat() {
+	public String getCreateat() {
 		return createat;
 	}
-	public void setCreateat(Date createat) {
+	public void setCreateat(String createat) {
 		this.createat = createat;
 	}
-	public Date getUpdateat() {
+	public String getUpdateat() {
 		return updateat;
 	}
-	public void setUpdateat(Date updateat) {
+	public void setUpdateat(String updateat) {
 		this.updateat = updateat;
 	}
 	public Boolean getIsactive() {

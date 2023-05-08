@@ -21,6 +21,7 @@ import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.WhislistModel;
+import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.CartService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.WishListService;
@@ -37,6 +38,7 @@ public class UserController {
 	@Autowired
 	CartService cartService;
 	
+	@Autowired WishListService  wishListService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
