@@ -115,7 +115,7 @@ public class UserService {
 		cart.setUser(entity);
 		cart.setCartItems(cartItem);
 		cart.setId(UUID.randomUUID().toString().split("-")[0]);
-		cartRepository.insert(cart);
+		cartRepository.save(cart);
 		
 		return userRepo.save(entity);
 	}
