@@ -1,7 +1,6 @@
 package vn.iotstar.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.ERole;
-import vn.iotstar.entity.OrderItem;
 import vn.iotstar.entity.User;
-import vn.iotstar.model.WhislistModel;
 import vn.iotstar.service.UserService;
 
 @RestController
@@ -88,8 +85,6 @@ public class UserController {
 				return null;
 			}
 		} 
-		Date currentDate = new Date();
-		entity.setUpdateat(currentDate);
 		return userService.save(entity);
 	}
 	
@@ -103,9 +98,7 @@ public class UserController {
 	public String UnActive(@RequestParam(name = "id", required = false) String id){
 		try {
 			User user = userService.findById(id);
-			Date currentDate = new Date();
 			user.setIsActive(false);	
-			user.setUpdateat(currentDate);
 			userService.updateUser(user);
 			return "Success";
 		}
@@ -119,7 +112,6 @@ public class UserController {
 	public String Active(@RequestParam(name = "id", required = false) String id){
 		try {
 			User user = userService.findById(id);
-			Date currentDate = new Date();
 			if(user.getIsActive()) {
 				user.setIsActive(false);	
 			}
@@ -127,7 +119,6 @@ public class UserController {
 				user.setIsActive(true);	
 			}
 			
-			user.setUpdateat(currentDate);
 			userService.updateUser(user);
 			return "Success";
 		}
@@ -143,13 +134,10 @@ public class UserController {
 		if(user.getAvatar()=="") {
 			user.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
 		}
-		Date currentDate = new Date();
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		entity.setIsActive(true);
 		entity.setRole(ERole.ROLE_USER.toString());
 		entity.setResetpasswordtoken(user.getPassword());
-		entity.setCreateat(currentDate);
-		entity.setUpdateat(currentDate);
 		List<User> list = userService.findAll();
 		for (User user1 : list) {
 			if(user1.getUsername().toString().equals(entity.getUsername())) {

@@ -55,9 +55,6 @@ public class CategoryController {
 			}
 		}
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
-		Date date = new Date();
-		entity.setCreateat(date);
-		entity.setUpdateat(date);
 		return cate.save(entity);
 	}
 
@@ -76,8 +73,6 @@ public class CategoryController {
 			}
 		}
 		Category entity = category;
-		Date date = new Date();
-		entity.setUpdateat(date);
 		return cate.save(entity);
 	}
 

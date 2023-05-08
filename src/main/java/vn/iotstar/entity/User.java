@@ -29,10 +29,6 @@ public class User {
 	private String role;
 	private Boolean isActive;
 	private String resetpasswordtoken;
-	private Date createat;
-	private Date updateat;
-	
-	
 	
 	public User(@NotBlank String email, @NotBlank String username, @NotBlank String password) {
 		super();
@@ -117,17 +113,5 @@ public class User {
 	public void setResetpasswordtoken(String resetpasswordtoken) {
 		this.resetpasswordtoken = resetpasswordtoken;
 	}
-	public Date getCreateat() {
-		return createat;
-	}
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-	public Date getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(Date updateat) {
-		this.updateat = updateat;
-	}
-	
+		
 }

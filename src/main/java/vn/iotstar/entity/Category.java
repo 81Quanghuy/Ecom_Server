@@ -11,8 +11,6 @@ public class Category {
 	private String id;
 	private String name;
 	private String image;
-	private Date createat;
-	private Date updateat;
 	private Boolean isdeleted;
 	
 
@@ -33,18 +31,6 @@ public class Category {
 	}
 	public void setImage(String image) {
 		this.image = image;
-	}
-	public Date getCreateat() {
-		return createat;
-	}
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-	public Date getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(Date updateat) {
-		this.updateat = updateat;
 	}
 	public Boolean getIsdeleted() {
 		return isdeleted;
