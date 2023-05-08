@@ -12,8 +12,8 @@ public class CartItem {
 	private Cart cart;
 	Product product;
 	private Integer count;
-	private Date createat;
-	private Date updateat;
+//	private Date createat;
+//	private Date updateat;
 	public Integer getId() {
 		return id;
 	}
@@ -38,17 +38,17 @@ public class CartItem {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-	public Date getCreateat() {
-		return createat;
-	}
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-	public Date getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(Date updateat) {
-		this.updateat = updateat;
-	}
+//	public Date getCreateat() {
+//		return createat;
+//	}
+//	public void setCreateat(Date createat) {
+//		this.createat = createat;
+//	}
+//	public Date getUpdateat() {
+//		return updateat;
+//	}
+//	public void setUpdateat(Date updateat) {
+//		this.updateat = updateat;
+//	}
 	
 }
