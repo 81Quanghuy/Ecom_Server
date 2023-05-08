@@ -11,8 +11,6 @@ public class Delivery {
 	@Id
 	private String id;
 	private String address;
-	private Date createat;
-	private Date updateat;
 	
 	@DBRef
 	private User user;
@@ -20,12 +18,10 @@ public class Delivery {
 	public Delivery() {
 		super();
 	}
-	public Delivery(String id, String address, Date createat, Date updateat) {
+	public Delivery(String id, String address) {
 		super();
 		this.id = id;
 		this.address = address;
-		this.createat = createat;
-		this.updateat = updateat;
 	}
 	public String getId() {
 		return id;
@@ -38,18 +34,5 @@ public class Delivery {
 	}
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	public Date getCreateat() {
-		return createat;
-	}
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-	public Date getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(Date updateat) {
-		this.updateat = updateat;
-	}
-	
+	}	
 }

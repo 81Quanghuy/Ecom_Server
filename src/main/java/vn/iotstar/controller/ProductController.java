@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.ImageData;
+import vn.iotstar.entity.OrderItem;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Review;
+import vn.iotstar.service.OrderItemService;
 import vn.iotstar.service.ProductService;
 import vn.iotstar.service.StorageService;
 
@@ -30,6 +32,8 @@ public class ProductController {
 	
 	@Autowired
 	ProductService product;
+	@Autowired 
+	OrderItemService orderItemService;
 	
 	@Autowired
 	StorageService storage;
@@ -47,11 +51,31 @@ public class ProductController {
 	@PostMapping("active")
 	public Product producChangeActive(@RequestParam(name = "id", required = false) String id,
 			@RequestParam(name = "isselling", required = false) Boolean isselling) {
-		Optional<Product> product1 = product.findById(id);
-		Product entity = product1.get();
-		entity.setIsselling(isselling);
-		return product.save(entity);
+		// đặt cờ để kiểm tra sản phẩm chưa được người dùng mua
+		Boolean flag = true;
 		
+		Optional<Product> product1 =null;
+		product1= product.findById(id);
+		// kiểm tra sản phẩm tồn tại
+		if(!product1.equals(null)) {
+			
+			// kiểm tra sản phẩm có được người dùng mua chưa
+			List<OrderItem> list = orderItemService.findAll();
+			for (OrderItem orderItem : list) {
+				if(orderItem.getProduct().getId().equals(id)) {
+					flag = false;
+					break;
+				}
+			}
+			//Chưa mua
+			if(flag) {
+				Product entity = product1.get();
+				entity.setIsselling(isselling);
+				return product.save(entity);
+			}
+		}
+		
+		return null;
 	}
 	@GetMapping("/my/{barcode}")
 	public ResponseEntity<Product> getProductByBarcode(@PathVariable("barcode") String barcode) {
@@ -73,48 +97,13 @@ public class ProductController {
 		return product.findById(id);
 	}
 	
-	@PostMapping("byCate")
-	public List<Product> getProductByCategory(@RequestBody Category category){
-		return product.findByCategory(category);
-	}
-	//,@RequestParam("category")Category category 
 	
-	@PostMapping("add")
-	public Product add(@RequestBody Product product1) {
-		Product entity = product1;
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
-		return product.save(entity);
-	}
-	
-	
-//	public Product addProduct(@RequestParam("name")String name,@RequestParam("desciption")String desciption
-//			,@RequestParam("price")Integer price ,@RequestParam("promotionaprice")Integer promotionaprice  
-//			,@RequestParam("quantity")Integer quantity ,@RequestParam("sold")Integer sold ,
-//			@RequestParam("barcode")String barcode 
-//			,@RequestParam("image")MultipartFile file) throws IOException {
-//		Date date = new Date();
-//		ImageData images = storage.uploadImage(file);
-//		Product entity = new Product();
-//		entity.setId(UUID.randomUUID().toString().split("-")[0]);
-//		entity.setName(name);
-//		entity.setDesciption(desciption);
-//		entity.setPrice(price);
-//		entity.setPromotionaprice(promotionaprice);
-//		entity.setQuantity(quantity);
-//		entity.setSold(sold);
-//		entity.setIsselling(true);
-//		entity.setListimage("https://ecomserver.up.railway.app/images/"+images.getName());		
-//		//entity.setCategory(category);
-//		entity.setRating(0.0);
-//		entity.setCreateat(date);
-//		entity.setUpdateat(date);
-//		entity.setBarcode(barcode);		
-//		product.save(entity);
-//		return entity;
-//	}
-	
-	@PostMapping("upload")
-	public Product updateProduct(@RequestBody Product productEntity) {		
+	@PostMapping("notify")
+	public Product updateProduct(@RequestBody Product productEntity) {	
+		if(productEntity.getId()==null) {
+			productEntity.setId(UUID.randomUUID().toString().split("-")[0]);
+			productEntity.setRating(0.0);
+		}
 		return product.save(productEntity);
 	}
 	
@@ -134,14 +123,8 @@ public class ProductController {
 	}
 	
 
-	@PostMapping("/insert")
-	public Product insertProduct(@RequestBody Product pro) {
-		return product.save(pro);
-	}
-	
-
-	@PostMapping("category")
-	public List<Product> getListByCate(@RequestBody Category category){
-		return product.findByCategory(category);
+	@PostMapping("categoryName")
+	public List<Product> getListByCate(@RequestParam("name") String name){
+		return product.findByCategory(name);
 	}
 }

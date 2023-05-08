@@ -56,13 +56,13 @@ public class ProductService {
 		return proRepo.findByBarcode(barcode);
 	}
 
-	public List<Product> findByCategory(Category category) {
-		Optional<Category> categories = categoryService.findById(category.getId());
+	public List<Product> findByCategory(String name ) {
+		List<Category> categories = categoryService.findByName(name);
 		
 		List<Product> list = proRepo.findAll();
 
-		if(categories.get() != null) {
-			list = proRepo.findByCategory(categories.get());
+		if(categories.size() > 0) {
+			list = proRepo.findByCategory(categories.get(0));
 		}
 		return list;
 	}

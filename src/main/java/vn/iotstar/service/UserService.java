@@ -11,7 +11,6 @@ import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
-import vn.iotstar.repository.CartItemRepository;
 import vn.iotstar.repository.CartRepository;
 import vn.iotstar.repository.UserRepository;
 
@@ -68,15 +67,19 @@ public class UserService {
 		User existingUser = userRepo.findById(userRequest.getId()).get();
 		existingUser.setAddress(userRequest.getAddress());
 		existingUser.setAvatar(userRequest.getAvatar());
+
 //		existingUser.setCreateat(userRequest.getCreateat());
+
 		existingUser.setEmail(userRequest.getEmail());
 		existingUser.setFullName(userRequest.getFullName());
 		existingUser.setIsActive(userRequest.getIsActive());
 		existingUser.setPassword(userRequest.getPassword());
 		existingUser.setPhone(userRequest.getPhone());
 		existingUser.setUsername(userRequest.getUsername());
+
 //		existingUser.setUpdateat(userRequest.getUpdateat());
 		
+
 
 		return userRepo.save(existingUser);
 	}
@@ -86,11 +89,16 @@ public class UserService {
 
 	public User createUser(String username, String password) {
 		User entity = new User();
+
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		entity.setAddress("TP. Hồ Chí Minh");
 		entity.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
 //		entity.setCreateat(currentDate);
 //		entity.setUpdateat(currentDate);
+
+		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		entity.setAddress("TP. Hồ Chí Minh");
+		entity.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
 		entity.setEmail("email@gmail.com");
 		entity.setFullName("Nguyễn Văn A");
 		entity.setIsActive(true);

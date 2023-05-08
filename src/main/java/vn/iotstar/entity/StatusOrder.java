@@ -4,6 +4,7 @@ public enum StatusOrder {
 		HUY,
 		CHOXACNHAN,
 		DANGGIAO,
-		DAGIAO
+		DAGIAO,
+		TUCHOI
 }
 
