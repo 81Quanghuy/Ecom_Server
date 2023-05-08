@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
+import vn.iotstar.entity.Wishlist;
+import vn.iotstar.model.WhislistModel;
+import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.UserService;
+import vn.iotstar.service.WishListService;
 
 @RestController
 @RequestMapping("/user")
@@ -26,6 +30,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired WishListService  wishListService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

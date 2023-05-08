@@ -3,28 +3,23 @@ package vn.iotstar.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "CartItem")
 public class CartItem {
 	@Id
 	private Integer id;
-	private Cart cart;
+	@DBRef
 	Product product;
 	private Integer count;
-	private Date createat;
-	private Date updateat;
+	private String createat;
+	private String updateat;
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public Cart getCart() {
-		return cart;
-	}
-	public void setCart(Cart cart) {
-		this.cart = cart;
 	}
 	public Product getProduct() {
 		return product;
@@ -38,16 +33,16 @@ public class CartItem {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-	public Date getCreateat() {
+	public String getCreateat() {
 		return createat;
 	}
-	public void setCreateat(Date createat) {
+	public void setCreateat(String createat) {
 		this.createat = createat;
 	}
-	public Date getUpdateat() {
+	public String getUpdateat() {
 		return updateat;
 	}
-	public void setUpdateat(Date updateat) {
+	public void setUpdateat(String updateat) {
 		this.updateat = updateat;
 	}
 	

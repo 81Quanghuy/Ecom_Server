@@ -19,8 +19,6 @@ public class Wishlist {
 	        this.id = id;
 	    }
 	    
-	   
-
 	    public String getUserId() {
 			return userId;
 		}
