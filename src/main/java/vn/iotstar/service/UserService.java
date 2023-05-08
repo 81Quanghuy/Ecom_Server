@@ -1,19 +1,26 @@
 package vn.iotstar.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
+import vn.iotstar.repository.CartRepository;
 import vn.iotstar.repository.UserRepository;
 
 @Service
 public class UserService {
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	CartRepository cartRepository;
 
 	public <S extends User> S save(S entity) {
 		
@@ -71,6 +78,7 @@ public class UserService {
 		existingUser.setUsername(userRequest.getUsername());
 
 //		existingUser.setUpdateat(userRequest.getUpdateat());
+		
 
 
 		return userRepo.save(existingUser);
@@ -82,7 +90,6 @@ public class UserService {
 	public User createUser(String username, String password) {
 		User entity = new User();
 
-//		Date currentDate = new Date();
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		entity.setAddress("TP. Hồ Chí Minh");
 		entity.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
@@ -100,6 +107,16 @@ public class UserService {
 		entity.setResetpasswordtoken(password);
 		entity.setUsername(username);
 		entity.setPassword(password);
+		//Tạo giỏ hàng
+		
+		Cart cart = new Cart();
+		List<CartItem> cartItem = new ArrayList<>();
+		
+		cart.setUser(entity);
+		cart.setCartItems(cartItem);
+		cart.setId(UUID.randomUUID().toString().split("-")[0]);
+		cartRepository.insert(cart);
+		
 		return userRepo.save(entity);
 	}
 
