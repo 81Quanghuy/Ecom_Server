@@ -1,5 +1,6 @@
 package vn.iotstar.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -50,6 +51,7 @@ public class UserController {
 			@RequestParam(name = "password", required = false) String password ) {
 		return userService.getUserByUsername(username, password);
 	}
+	
 	@GetMapping("list")
 	public List<User> getUsers() {
 		return userService.findAll();
@@ -65,6 +67,7 @@ public class UserController {
 	public User modifyUser(@RequestBody User user) {
 		//Khai báo User,Danh sách User
 		User entity = user;
+
 		List<User> list = userService.findAll();
 		List<User> listExpUser = new ArrayList<User>();
 		
@@ -133,10 +136,12 @@ public class UserController {
 		if(user.getAvatar()=="") {
 			user.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
 		}
+
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		entity.setIsActive(true);
 		entity.setRole(ERole.ROLE_USER.toString());
 		entity.setResetpasswordtoken(user.getPassword());
+
 		List<User> list = userService.findAll();
 		for (User user1 : list) {
 			if(user1.getUsername().toString().equals(entity.getUsername())) {
@@ -155,6 +160,25 @@ public class UserController {
 	public List<User>getUsersActive(@RequestParam(name = "isActive", required = false) Boolean isActive){
 		return userService.findByIsActive(isActive);	
 	}
+
+	
+	@PostMapping("addWishlist")
+	public Wishlist add(@RequestBody Wishlist category) {
+		Wishlist entity = category;
+		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		return wishListService.save(entity);
+	}
+
+	  @PostMapping("/userwishlist")
+	  public WhislistModel getWishlistByUser(@RequestParam(name = "id", required = false) String id) {
+	        String message = "User not found";
+	        if(id != null) {
+		        Wishlist wisthlist = wishListService.getWishlistByUserId(id);
+		        message = "succes";
+		        return new WhislistModel(message, wisthlist.getProducts());
+	        }
+			return new WhislistModel(message, null);
+	   }
 		
 	@GetMapping("userwishlist")
 	public boolean getWishlistByUser() {

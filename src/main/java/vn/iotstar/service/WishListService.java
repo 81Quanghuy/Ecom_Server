@@ -1,5 +1,6 @@
 package vn.iotstar.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,21 @@ public class WishListService {
 	public void delete(Wishlist entity) {
 		repository.delete(entity);
 	}
+	
+	
+	public Wishlist findByUserId(String userId) {
+		return repository.findByUserId(userId);
+	}
+
+	public Wishlist getWishlistByUserId(String id) {
+		List<Wishlist> list = repository.findAll();
+		for(Wishlist wish : list) {
+			if(wish.getUserId() == id)
+				return wish;
+		}
+		return null;
+	}
+
 	
 	
 
