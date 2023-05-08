@@ -24,6 +24,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -103,7 +104,6 @@ public class UserController {
 			return "Success";
 		}
 		catch (Exception e) {
-			// TODO: handle exception
 			return e.getMessage();
 		}
 		
@@ -123,7 +123,6 @@ public class UserController {
 			return "Success";
 		}
 		catch (Exception e) {
-			// TODO: handle exception
 			return e.getMessage();
 		}
 		
@@ -156,4 +155,11 @@ public class UserController {
 	public List<User>getUsersActive(@RequestParam(name = "isActive", required = false) Boolean isActive){
 		return userService.findByIsActive(isActive);	
 	}
+		
+	@GetMapping("userwishlist")
+	public boolean getWishlistByUser() {
+		
+		return true;
+	}
+	
 }
