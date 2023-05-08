@@ -6,15 +6,8 @@ import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
 public class WhislistModel {
-	private User user;
 	String message;
 	List<Product> list;
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
 	public String getMessage() {
 		return message;
 	}
@@ -27,5 +20,11 @@ public class WhislistModel {
 	public void setList(List<Product> list) {
 		this.list = list;
 	}
+	public WhislistModel(String message, List<Product> list) {
+		super();
+		this.message = message;
+		this.list = list;
+	}
+	
 	
 }

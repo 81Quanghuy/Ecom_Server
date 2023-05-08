@@ -1,7 +1,5 @@
 package vn.iotstar.entity;
 
-import java.util.Date;
-
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -28,9 +26,9 @@ public class User {
 	private String role;
 	private Boolean isActive;
 	private String resetpasswordtoken;
-	private Date createat;
-	private Date updateat;
-	
+//	private Date createat;
+//	private Date updateat;
+//	
 	
 	
 	public User(@NotBlank String email, @NotBlank String username, @NotBlank String password) {
@@ -116,17 +114,6 @@ public class User {
 	public void setResetpasswordtoken(String resetpasswordtoken) {
 		this.resetpasswordtoken = resetpasswordtoken;
 	}
-	public Date getCreateat() {
-		return createat;
-	}
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-	public Date getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(Date updateat) {
-		this.updateat = updateat;
-	}
+
 	
 }

@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Wishlist")
 public class Wishlist {
 
-	 private String id;
-	    private User user;
+	 	private String id;
+	    private String userId;
 	    private List<Product> products;
 
 	    public String getId() {
@@ -18,16 +18,18 @@ public class Wishlist {
 	    public void setId(String id) {
 	        this.id = id;
 	    }
+	    
+	   
 
-	    public User getUser() {
-	        return user;
-	    }
+	    public String getUserId() {
+			return userId;
+		}
 
-	    public void setUser(User user) {
-	        this.user = user;
-	    }
+		public void setUserId(String userId) {
+			this.userId = userId;
+		}
 
-	    public List<Product> getProducts() {
+		public List<Product> getProducts() {
 	        return products;
 	    }
 

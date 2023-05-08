@@ -1,6 +1,5 @@
 package vn.iotstar.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -61,14 +60,14 @@ public class UserService {
 		User existingUser = userRepo.findById(userRequest.getId()).get();
 		existingUser.setAddress(userRequest.getAddress());
 		existingUser.setAvatar(userRequest.getAvatar());
-		existingUser.setCreateat(userRequest.getCreateat());
+//		existingUser.setCreateat(userRequest.getCreateat());
 		existingUser.setEmail(userRequest.getEmail());
 		existingUser.setFullName(userRequest.getFullName());
 		existingUser.setIsActive(userRequest.getIsActive());
 		existingUser.setPassword(userRequest.getPassword());
 		existingUser.setPhone(userRequest.getPhone());
 		existingUser.setUsername(userRequest.getUsername());
-		existingUser.setUpdateat(userRequest.getUpdateat());
+//		existingUser.setUpdateat(userRequest.getUpdateat());
 
 		return userRepo.save(existingUser);
 	}
@@ -78,12 +77,12 @@ public class UserService {
 
 	public User createUser(String username, String password) {
 		User entity = new User();
-		Date currentDate = new Date();
+//		Date currentDate = new Date();
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		entity.setAddress("TP. Hồ Chí Minh");
 		entity.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
-		entity.setCreateat(currentDate);
-		entity.setUpdateat(currentDate);
+//		entity.setCreateat(currentDate);
+//		entity.setUpdateat(currentDate);
 		entity.setEmail("email@gmail.com");
 		entity.setFullName("Nguyễn Văn A");
 		entity.setIsActive(true);
@@ -94,5 +93,11 @@ public class UserService {
 		entity.setPassword(password);
 		return userRepo.save(entity);
 	}
+
+	public List<User> findByUsername(String username) {
+		return userRepo.findByUsername(username);
+	}
+	
+	
 	
 }
