@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import vn.iotstar.entity.Category;
 import vn.iotstar.entity.ImageData;
 import vn.iotstar.entity.OrderItem;
 import vn.iotstar.entity.Product;
-import vn.iotstar.entity.Review;
 import vn.iotstar.service.OrderItemService;
 import vn.iotstar.service.ProductService;
 import vn.iotstar.service.StorageService;

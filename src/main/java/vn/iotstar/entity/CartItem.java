@@ -1,7 +1,5 @@
 package vn.iotstar.entity;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,9 +11,14 @@ public class CartItem {
 	@DBRef
 	Product product;
 	private Integer count;
+<<<<<<< HEAD
 	private String createat;
 	private String updateat;
 	public String getId() {
+=======
+
+	public Integer getId() {
+>>>>>>> 93b0be1535cae45a52eaa59e2a4ecedd8a6794b8
 		return id;
 	}
 	public void setId(String id) {
@@ -33,6 +36,7 @@ public class CartItem {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
+
 	public String getCreateat() {
 		return createat;
 	}

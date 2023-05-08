@@ -1,6 +1,5 @@
 package vn.iotstar.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -26,7 +25,7 @@ public class Cart {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public List<CartItem> getCartItems() {
 		return cartItems;
 	}
