@@ -1,5 +1,7 @@
 package vn.iotstar.controller;
 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,10 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
-import vn.iotstar.entity.Wishlist;
-import vn.iotstar.model.WhislistModel;
 import vn.iotstar.service.UserService;
-import vn.iotstar.service.WishListService;
 
 @RestController
 @RequestMapping("/user")
@@ -27,8 +26,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired 
-	private WishListService wishListService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -39,6 +36,12 @@ public class UserController {
 			if(user.getUsername().toString().equals(username)) {
 				return null;
 			}
+//			if(user.getPhone().toString().equals(entity.getPhone())) {
+//				return null;
+//			}
+//			if(user.getEmail().toString().equals(entity.getEmail())) {
+//				return null;
+//			}
 		} 
 		return userService.createUser(username,password);
 	}
@@ -60,11 +63,32 @@ public class UserController {
 
 	}
 
-	@PostMapping("updateUser")
+	@PostMapping("/updateUser")
 	public User modifyUser(@RequestBody User user) {
+		//Khai báo User,Danh sách User
 		User entity = user;
-//		Date currentDate = new Date();
-//		entity.setUpdateat(currentDate);
+
+		List<User> list = userService.findAll();
+		List<User> listExpUser = new ArrayList<User>();
+		
+		// Tìm các User còn lại
+		for(User us :list) {
+			if(!us.getId().toString().equals(user.getId())) {
+				listExpUser.add(us);
+			}
+		}
+		// Hàm điều kiện 
+		for (User user1 : listExpUser) {
+			if(user1.getUsername().toString().equals(entity.getUsername())) {
+				return null;
+			}
+			if(user1.getPhone().toString().equals(entity.getPhone())) {
+				return null;
+			}
+			if(user1.getEmail().toString().equals(entity.getEmail())) {
+				return null;
+			}
+		} 
 		return userService.save(entity);
 	}
 	
@@ -78,13 +102,30 @@ public class UserController {
 	public String UnActive(@RequestParam(name = "id", required = false) String id){
 		try {
 			User user = userService.findById(id);
-//			Date currentDate = new Date();
 			user.setIsActive(false);	
 			userService.updateUser(user);
 			return "Success";
 		}
 		catch (Exception e) {
-			// TODO: handle exception
+			return e.getMessage();
+		}
+		
+	}
+	@PostMapping("active-run")
+	public String Active(@RequestParam(name = "id", required = false) String id){
+		try {
+			User user = userService.findById(id);
+			if(user.getIsActive()) {
+				user.setIsActive(false);	
+			}
+			else {
+				user.setIsActive(true);	
+			}
+			
+			userService.updateUser(user);
+			return "Success";
+		}
+		catch (Exception e) {
 			return e.getMessage();
 		}
 		
@@ -92,20 +133,34 @@ public class UserController {
 	@PostMapping("add")
 	public User AddUser(@RequestBody User user) {
 		User entity = user;
-		if(user.getAvatar() ==null) {
+		if(user.getAvatar()=="") {
 			user.setAvatar("https://ecomserver.up.railway.app/images/IT.jpg");
 		}
-//		Date currentDate = new Date();
+
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		entity.setIsActive(true);
 		entity.setRole(ERole.ROLE_USER.toString());
 		entity.setResetpasswordtoken(user.getPassword());
+
+		List<User> list = userService.findAll();
+		for (User user1 : list) {
+			if(user1.getUsername().toString().equals(entity.getUsername())) {
+				return null;
+			}
+			if(user1.getPhone().toString().equals(entity.getPhone())) {
+				return null;
+			}
+			if(user1.getEmail().toString().equals(entity.getEmail())) {
+				return null;
+			}
+		} 
 		return userService.save(entity);
 	}
 	@PostMapping("active")
 	public List<User>getUsersActive(@RequestParam(name = "isActive", required = false) Boolean isActive){
 		return userService.findByIsActive(isActive);	
 	}
+
 	
 	@PostMapping("addWishlist")
 	public Wishlist add(@RequestBody Wishlist category) {
@@ -124,4 +179,11 @@ public class UserController {
 	        }
 			return new WhislistModel(message, null);
 	   }
+		
+	@GetMapping("userwishlist")
+	public boolean getWishlistByUser() {
+		
+		return true;
+	}
+	
 }

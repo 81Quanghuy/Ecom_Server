@@ -21,15 +21,18 @@ public class User {
 	private String username;
 	@NotBlank
 	private String password;// mật khẩu mã hóa
+	@UniqueElements
 	private String address;
 	private String avatar;
 	private String role;
 	private Boolean isActive;
 	private String resetpasswordtoken;
+
 //	private Date createat;
 //	private Date updateat;
 //	
 	
+
 	
 	public User(@NotBlank String email, @NotBlank String username, @NotBlank String password) {
 		super();
@@ -115,5 +118,4 @@ public class User {
 		this.resetpasswordtoken = resetpasswordtoken;
 	}
 
-	
 }
