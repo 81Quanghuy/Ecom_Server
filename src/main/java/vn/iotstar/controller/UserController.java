@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.WhislistModel;
+import vn.iotstar.service.CartService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.WishListService;
 
@@ -30,6 +33,9 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	WishListService wishListService;
+	
+	@Autowired
+	CartService cartService;
 	
 
 	@PostMapping
@@ -158,7 +164,15 @@ public class UserController {
 			if(user1.getEmail().toString().equals(entity.getEmail())) {
 				return null;
 			}
-		} 
+		}
+		
+		Cart cart = new Cart();
+		List<CartItem> cartItem = new ArrayList<>();
+		cart.setUser(user);
+		cart.setCartItems(cartItem);
+		cart.setId(UUID.randomUUID().toString().split("-")[0]);
+		cartService.save(cart);
+		
 		return userService.save(entity);
 	}
 	@PostMapping("active")

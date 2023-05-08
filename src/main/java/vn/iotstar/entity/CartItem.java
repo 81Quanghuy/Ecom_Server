@@ -1,15 +1,17 @@
 package vn.iotstar.entity;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "CartItem")
 public class CartItem {
 	@Id
 	private Integer id;
+	
+	@DBRef
 	private Cart cart;
+	
 	Product product;
 	private Integer count;
 //	private Date createat;
