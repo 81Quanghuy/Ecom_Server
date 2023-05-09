@@ -4,26 +4,31 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
-
 
 @Document(collection = "OrderItem")
-@Embeddable
 public class OrderItem {
 
 	@Id
 	private String id;
+	
 	@DBRef
 	private Order order;
-
 	private Integer count;
-  
 	private String createat;
 	private String updateat;
 	
+	@DBRef
+	private Product product;
+	
+	private Double Totalprice;
 	
 	
+	public Double getPrice() {
+		return Totalprice;
+	}
+	public void setPrice(Double price) {
+		this.Totalprice = price;
+	}
 	public String getCreateat() {
 		return createat;
 	}
@@ -36,11 +41,7 @@ public class OrderItem {
 	public void setUpdateat(String updateat) {
 		this.updateat = updateat;
 	}
-  
-  
-  @Embedded
-	private Product product;
-  
+ 
 	public String getId() {
 		return id;
 	}
