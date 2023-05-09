@@ -1,8 +1,10 @@
 package vn.iotstar.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Order")
@@ -17,6 +19,10 @@ public class Order {
 	private Float price;
 	private Date createat;
 	private Date updateat;
+	
+	@DBRef
+	List<OrderItem> orderitem;
+	
 	private Boolean isactive;
 	public String getId() {
 		return id;

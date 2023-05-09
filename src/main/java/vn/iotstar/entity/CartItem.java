@@ -7,19 +7,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "CartItem")
 public class CartItem {
 	@Id
-	private Integer id;
-	
+	private String id;
 	@DBRef
 	private Cart cart;
-	
 	Product product;
 	private Integer count;
-//	private Date createat;
-//	private Date updateat;
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public Cart getCart() {
