@@ -68,4 +68,14 @@ public class OrderItemController {
 		}
 		return list;
 	}
+	
+	@PostMapping("/getByOrder")
+	public List<OrderItem> getByOrder(@RequestBody Order order) {
+		List<OrderItem> orderItems = service.findByOrder(order);
+		if(orderItems != null) {
+			return orderItems;
+		}
+		return null;
+	}
+	
 }
