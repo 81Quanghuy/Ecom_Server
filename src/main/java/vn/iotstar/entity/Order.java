@@ -20,9 +20,6 @@ public class Order {
 	private Float price;
 
 	
-	@DBRef
-	List<OrderItem> orderitem;
-	
 
 	private String createat;
 	private String updateat;

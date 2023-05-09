@@ -32,6 +32,16 @@ public class CartItem {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
+	public CartItem(String id, Cart cart, Product product, Integer count) {
+		super();
+		this.id = id;
+		this.cart = cart;
+		this.product = product;
+		this.count = count;
+	}
+	public CartItem() {
+		super();
+	}
 
 
 	
