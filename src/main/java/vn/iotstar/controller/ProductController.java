@@ -1,8 +1,12 @@
 package vn.iotstar.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,102 +31,129 @@ import vn.iotstar.service.StorageService;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-	
+
 	@Autowired
 	ProductService product;
-	@Autowired 
+	@Autowired
 	OrderItemService orderItemService;
-	
+
 	@Autowired
 	StorageService storage;
-	
+
 	@GetMapping("list")
 	public List<Product> getProductAll() {
 		return product.findAll();
 	}
-	
+
 	@GetMapping("gettop3")
 	public List<Product> getTop3() {
 		return product.findTop3ByOrderBySoldDesc();
 	}
-	
+
 	@PostMapping("active")
 	public Product producChangeActive(@RequestParam(name = "id", required = false) String id,
 			@RequestParam(name = "isselling", required = false) Boolean isselling) {
 		// đặt cờ để kiểm tra sản phẩm chưa được người dùng mua
 		Boolean flag = true;
-		
-		Optional<Product> product1 =null;
-		product1= product.findById(id);
+
+		Optional<Product> product1 = null;
+		product1 = product.findById(id);
 		// kiểm tra sản phẩm tồn tại
-		if(!product1.equals(null)) {
-			
+		if (!product1.equals(null)) {
+
 			// kiểm tra sản phẩm có được người dùng mua chưa
 			List<OrderItem> list = orderItemService.findAll();
 			for (OrderItem orderItem : list) {
-				if(orderItem.getProduct().getId().equals(id)) {
+				if (orderItem.getProduct().getId().equals(id)) {
 					flag = false;
 					break;
 				}
 			}
-			//Chưa mua
-			if(flag) {
+			// Chưa mua
+			if (flag) {
 				Product entity = product1.get();
 				entity.setIsselling(isselling);
 				return product.save(entity);
 			}
 		}
-		
+
 		return null;
 	}
+
 	@GetMapping("/my/{barcode}")
 	public ResponseEntity<Product> getProductByBarcode(@PathVariable("barcode") String barcode) {
-		  List<Product> lists = product.getProductByBarcode(barcode);
-		  if(lists != null) {
-			  return new ResponseEntity<>(lists.get(0), HttpStatus.OK);
-		  }
-		  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    
-	 }
-	
+		List<Product> lists = product.getProductByBarcode(barcode);
+		if (lists != null) {
+			return new ResponseEntity<>(lists.get(0), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+	}
+
 	@PostMapping("get")
-	public List<Product> getProductByBar(@RequestParam(name = "barcode", required = false) String barcode){
+	public List<Product> getProductByBar(@RequestParam(name = "barcode", required = false) String barcode) {
 		return product.getProductByBarcode(barcode);
 	}
-	
+
 	@PostMapping("getId")
-	public Optional<Product> getProductById(@RequestParam(name = "id", required = false) String id){
+	public Optional<Product> getProductById(@RequestParam(name = "id", required = false) String id) {
 		return product.findById(id);
 	}
-	
-	
+
 	@PostMapping("notify")
-	public Product updateProduct(@RequestBody Product productEntity) {	
-		if(productEntity.getId()==null) {
+	public Product updateProduct(@RequestBody Product productEntity) {
+		Optional<Product> entity = product.findById(productEntity.getId());
+
+		// chỉnh ngày tháng năm thành dạng dd/mm/yyyy
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String strDate = dateFormat.format(date);
+		// tạo mới
+		if (entity.isEmpty()) {
 			productEntity.setId(UUID.randomUUID().toString().split("-")[0]);
 			productEntity.setRating(0.0);
+			productEntity.setIsselling(true);
+			productEntity.setSold(0);
+
+			productEntity.setCreateat(strDate);
+			productEntity.setUpdateat(strDate);
+			Random random = new Random();
+			productEntity.setBarcode(String.valueOf(random.nextInt(9000000) + 1000000));
+		}
+		// sửa 
+		else {
+			productEntity.setUpdateat(strDate);
+		}
+		if(productEntity.getPrice()<0) {
+			productEntity.setPrice(0);
+		}
+		if(productEntity.getPromotionaprice()<0) {
+			productEntity.setPromotionaprice(0);
+		}
+		if(productEntity.getQuantity()<0) {
+			productEntity.setQuantity(0);
 		}
 		return product.save(productEntity);
 	}
-	
+
 	@PostMapping("uploadImage")
-	public Product uploadImageProduct(@RequestParam("id")String id,@RequestParam("image")MultipartFile file) throws IOException {
+	public Product uploadImageProduct(@RequestParam("id") String id, @RequestParam("image") MultipartFile file)
+			throws IOException {
 		Optional<Product> entity = product.findById(id);
 		ImageData images = storage.uploadImage(file);
-		entity.get().setListimage("https://ecomserver.up.railway.app/images/"+images.getName());	
+		entity.get().setListimage("https://ecomserver.up.railway.app/images/" + images.getName());
 		product.save(entity.get());
 		return entity.get();
 	}
-	
+
 	@PostMapping("delete")
 	public String deleteProduct(@RequestParam("id") String id) {
 		product.deleteById(id);
 		return "Success";
 	}
-	
 
 	@PostMapping("categoryName")
-	public List<Product> getListByCate(@RequestParam("name") String name){
+	public List<Product> getListByCate(@RequestParam("name") String name) {
 		return product.findByCategory(name);
 	}
 }
