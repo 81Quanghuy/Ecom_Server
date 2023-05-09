@@ -131,7 +131,7 @@ public class UserController {
 		
 	}
 	@PostMapping("active-run")
-	public String Active(@RequestParam(name = "id", required = false) String id){
+	public User Active(@RequestParam(name = "id", required = false) String id){
 		try {
 			User user = userService.findById(id);
 			if(user.getIsActive()) {
@@ -140,12 +140,11 @@ public class UserController {
 			else {
 				user.setIsActive(true);	
 			}
-			
-			userService.updateUser(user);
-			return "Success";
+				
+			return userService.updateUser(user);
 		}
 		catch (Exception e) {
-			return e.getMessage();
+			return null;
 		}
 		
 	}
