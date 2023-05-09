@@ -17,8 +17,7 @@ public class OrderItem {
 	@DBRef
 	private Order order;
 
-	
-  private Integer count;
+	private Integer count;
   
 	private String createat;
 	private String updateat;
