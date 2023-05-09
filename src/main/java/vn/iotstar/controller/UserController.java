@@ -62,7 +62,15 @@ public class UserController {
 			@RequestParam(name = "password", required = false) String password ) {
 		return userService.getUserByUsername(username, password);
 	}
-	
+	@PostMapping("/getRole")
+	public User getManagerByUsername(@RequestParam(name = "username", required = false) String username,
+			@RequestParam(name = "password", required = false) String password ) {
+		User entity = userService.getUserByUsername(username, password);
+		if(entity.getRole().equals(ERole.ROLE_MANAGER.toString())|| entity.getRole().equals(ERole.ROLE_ADMIN.toString())) {
+			return entity;
+		}
+		return null;
+	}
 	@GetMapping("list")
 	public List<User> getUsers() {
 		return userService.findAll();

@@ -3,6 +3,7 @@ package vn.iotstar.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Order")
@@ -10,6 +11,7 @@ public class Order {
 	
 	@Id
 	private String id;
+	@DBRef
 	private User user;
 	private String address;
 	private String phone;

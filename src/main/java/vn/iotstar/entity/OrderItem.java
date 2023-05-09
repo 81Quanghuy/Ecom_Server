@@ -11,8 +11,8 @@ public class OrderItem {
 
 	@Id
 	private String id;
-	private Order order;
 	@DBRef
+	private Order order;
 	private Product product;
 	private Integer count;
 	public String getId() {
