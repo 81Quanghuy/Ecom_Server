@@ -43,6 +43,18 @@ public class OrderItemController {
 		
 		return null;
 	}
+	
+	@PostMapping("/addOrderItem")
+	public List<OrderItem> addListOrderItem(@RequestBody List<OrderItem> orderItems) {
+		List<OrderItem> mOrderItem = new ArrayList<>();
+		for(OrderItem orderItem :orderItems) {
+			OrderItem entity = orderItem;
+			entity.setId(UUID.randomUUID().toString().split("-")[0]);
+			mOrderItem.add(service.save(orderItem));
+		}
+		
+		return mOrderItem;
+	}
 
 	@SuppressWarnings("null")
 	@PostMapping("getAll")
