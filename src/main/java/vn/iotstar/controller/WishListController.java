@@ -41,9 +41,7 @@ public class WishListController {
 	
 	@PostMapping("addCartItem")
 	public CartItem insertCartItem(@RequestBody CartItem cartItem) {
-		
 		CartItem entity = new CartItem();
-		
 		return cartItemService.save(cartItem);
 	}
 	

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.repository.WishlistRepository;
 
@@ -29,20 +30,12 @@ public class WishListService {
 	public void delete(Wishlist entity) {
 		repository.delete(entity);
 	}
-	
-	
-	public Wishlist findByUserId(String userId) {
-		return repository.findByUserId(userId);
-	}
 
-	public Wishlist getWishlistByUserId(String id) {
-		List<Wishlist> list = repository.findAll();
-		for(Wishlist wish : list) {
-			if(wish.getUserId() == id)
-				return wish;
-		}
-		return null;
+	public Wishlist findByUser(User user) {
+		return repository.findByUser(user);
 	}
+	
+	
 
 	
 	

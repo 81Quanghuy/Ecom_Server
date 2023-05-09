@@ -10,9 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Cart {
 	@Id
 	private String id;
+	
+	@DBRef
 	private User user;
 	@DBRef
 	private List<CartItem> cartItems;
+	
 	public String getId() {
 		return id;
 	}

@@ -196,10 +196,10 @@ public class UserController {
 	}
 
 	  @PostMapping("/userwishlist")
-	  public WhislistModel getWishlistByUser(@RequestParam(name = "id", required = false) String id) {
+	  public WhislistModel getWishlistByUser(@RequestBody User user) {
 	        String message = "User not found";
-	        if(id != null) {
-		        Wishlist wisthlist = wishListService.getWishlistByUserId(id);
+	        if(user != null) {
+		        Wishlist wisthlist = wishListService.findByUser(user);
 		        message = "succes";
 		        return new WhislistModel(message, wisthlist.getProducts());
 	        }

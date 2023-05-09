@@ -14,6 +14,14 @@ public class CartItem {
 
 	Product product;
 	private Integer count;
+	
+	
+	public Cart getCart() {
+		return cart;
+	}
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 	public String getId() {
 		return id;
 	}

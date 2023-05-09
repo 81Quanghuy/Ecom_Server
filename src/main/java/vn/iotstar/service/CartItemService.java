@@ -9,7 +9,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.Product;
 import vn.iotstar.repository.CartItemRepository;
@@ -27,7 +26,6 @@ public class CartItemService {
 	public List<CartItem> findByProduct(Product product) {
 		return cartItemRepository.findByProduct(product);
 	}
-
 	public <S extends CartItem> S save(S entity) {
 	
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);

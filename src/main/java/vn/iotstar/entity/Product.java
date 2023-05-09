@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.NotBlank;
 
 @Document(collection = "Product")
+@Embeddable
 public class Product {
 
 	@Id
