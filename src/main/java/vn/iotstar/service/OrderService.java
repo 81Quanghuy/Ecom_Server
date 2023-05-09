@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Order;
 import vn.iotstar.entity.StatusOrder;
+import vn.iotstar.entity.User;
 import vn.iotstar.repository.OrderRepository;
 
 @Service
@@ -55,5 +56,11 @@ public class OrderService {
 	public void deleteAll() {
 		orderRepo.deleteAll();
 	}
+	
+	//tìm đơn hàng theo user
+	public List<Order> findByUser(User user) {
+		return orderRepo.findByUser(user);
+	}
+	
 	
 }

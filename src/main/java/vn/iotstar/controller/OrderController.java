@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.iotstar.entity.Order;
 import vn.iotstar.entity.OrderItem;
 import vn.iotstar.entity.StatusOrder;
+import vn.iotstar.entity.User;
+import vn.iotstar.model.ResponseOrder;
 import vn.iotstar.service.OrderItemService;
 import vn.iotstar.service.OrderService;
 
@@ -72,5 +74,17 @@ public class OrderController {
 		}
 		return list;
 	}
-
+	
+	
+	@PostMapping("userOders")
+	public ResponseOrder getOrderByUser(@RequestBody User user) {
+		List<Order> orders = service.findByUser(user);
+		String message = "Fail";
+		if(orders != null) {
+			message = "Success";
+			return new ResponseOrder(message, orders);
+		}
+		return new ResponseOrder(message, null);
+	}
+	
 }
