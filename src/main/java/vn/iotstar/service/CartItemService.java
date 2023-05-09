@@ -27,11 +27,8 @@ public class CartItemService {
 		return cartItemRepository.findByProduct(product);
 	}
 	public <S extends CartItem> S save(S entity) {
-		
-		CartItem cartitem = new CartItem();
-		cartitem.setCart(entity.getCart());
-		cartitem.setCount(entity.getCount());
-		cartitem.setId(UUID.randomUUID().toString().split("-")[0]);
+	
+		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return cartItemRepository.save(entity);
 	}
 

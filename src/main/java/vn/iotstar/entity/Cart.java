@@ -29,6 +29,15 @@ public class Cart {
 		this.user = user;
 	}
 
+	public Cart() {
+		super();
+	}
+	public Cart(String id, User user, List<CartItem> cartItems) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.cartItems = cartItems;
+	}
 	public List<CartItem> getCartItems() {
 		return cartItems;
 	}

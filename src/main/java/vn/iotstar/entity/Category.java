@@ -38,5 +38,15 @@ public class Category {
 	public void setIsdeleted(Boolean isdeleted) {
 		this.isdeleted = isdeleted;
 	}
+	public Category(String id, String name, String image, Boolean isdeleted) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.image = image;
+		this.isdeleted = isdeleted;
+	}
+	public Category() {
+		super();
+	}
 
 }
