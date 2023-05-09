@@ -1,14 +1,12 @@
 package vn.iotstar.entity;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotBlank;
-
 @Document(collection = "Product")
-@Embeddable
 public class Product {
 
 	@Id

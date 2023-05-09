@@ -1,10 +1,10 @@
 package vn.iotstar.entity;
 
+import javax.validation.constraints.NotBlank;
+
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import jakarta.validation.constraints.NotBlank;
 
 @Document(collection = "User")
 public class User {
