@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 
 
 @Document(collection = "OrderItem")
