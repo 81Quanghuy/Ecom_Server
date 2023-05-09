@@ -3,6 +3,7 @@ package vn.iotstar.controller;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,9 +41,18 @@ public class ProductController {
 	@Autowired
 	StorageService storage;
 
+	// lấy danh sách sản phẩm đang được bán
 	@GetMapping("list")
 	public List<Product> getProductAll() {
-		return product.findAll();
+		List<Product> list = product.findAll();
+		List<Product> products = new ArrayList<>();
+		for (Product product : list) {
+			if(product.getIsselling()) {
+				products.add(product);
+			}
+			
+		}
+		return products;
 	}
 
 	@GetMapping("gettop3")
@@ -134,16 +144,6 @@ public class ProductController {
 			productEntity.setQuantity(0);
 		}
 		return product.save(productEntity);
-	}
-
-	@PostMapping("uploadImage")
-	public Product uploadImageProduct(@RequestParam("id") String id, @RequestParam("image") MultipartFile file)
-			throws IOException {
-		Optional<Product> entity = product.findById(id);
-		ImageData images = storage.uploadImage(file);
-		entity.get().setListimage("https://ecomserver.up.railway.app/images/" + images.getName());
-		product.save(entity.get());
-		return entity.get();
 	}
 
 	@PostMapping("delete")

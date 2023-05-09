@@ -50,7 +50,7 @@ public class CategoryController {
 		System.out.print("Name in " + category.getName());
 		for (Category category2 : list) {
 			System.out.print("Name " + category2.getName());
-			if (category2.getName().toString().equals(category.getName())) {
+			if (category2.getName().toString().toLowerCase().contains(category.getName().toLowerCase())) {
 				return null;
 			}
 		}

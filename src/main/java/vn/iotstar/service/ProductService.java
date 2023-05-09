@@ -1,5 +1,6 @@
 package vn.iotstar.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,11 +61,18 @@ public class ProductService {
 		List<Category> categories = categoryService.findByName(name);
 		
 		List<Product> list = proRepo.findAll();
-
+		List<Product> entity = new ArrayList<>();
+		
 		if(categories.size() > 0) {
 			list = proRepo.findByCategory(categories.get(0));
+			for (Product product : list) {
+				if(product.getIsselling()) {
+					entity.add(product);
+				}
+				
+			}
 		}
-		return list;
+		return entity;
 	}
 
 	public List<Product> findTop3ByOrderBySoldDesc() {
