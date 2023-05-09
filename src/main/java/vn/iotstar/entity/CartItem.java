@@ -8,7 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CartItem {
 	@Id
 	private String id;
+  
 	@DBRef
+	private Cart cart;
+
 	Product product;
 	private Integer count;
 	public String getId() {

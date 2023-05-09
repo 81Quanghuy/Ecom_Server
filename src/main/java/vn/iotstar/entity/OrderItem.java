@@ -11,9 +11,18 @@ public class OrderItem {
 
 	@Id
 	private String id;
+	
+	@DBRef
 	private Order order;
+	
+	private Integer count;
+  
+	private Date createat;
+	private Date updateat;
+	
 	@DBRef
 	private Product product;
+  
 	private Integer count;
 	public String getId() {
 		return id;
