@@ -1,6 +1,7 @@
 package vn.iotstar.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -17,8 +18,15 @@ public class Order {
 	private String phone;
 	private StatusOrder statusOrder; // Trang thai don hang 0.Cần xác nhận 1.Bị hủy 2. Đang giao 3. Đã giao
 	private Float price;
+
+	
+	@DBRef
+	List<OrderItem> orderitem;
+	
+
 	private String createat;
 	private String updateat;
+
 	private Boolean isactive;
 	public String getId() {
 		return id;
