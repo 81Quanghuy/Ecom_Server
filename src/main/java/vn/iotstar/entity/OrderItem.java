@@ -13,11 +13,11 @@ public class OrderItem {
 
 	@Id
 	private String id;
-	
 	@DBRef
 	private Order order;
+
 	
-	private Integer count;
+  private Integer count;
   
 	private String createat;
 	private String updateat;
@@ -36,7 +36,9 @@ public class OrderItem {
 	public void setUpdateat(String updateat) {
 		this.updateat = updateat;
 	}
-	@DBRef
+  
+  
+  @Embedded
 	private Product product;
   
 	public String getId() {

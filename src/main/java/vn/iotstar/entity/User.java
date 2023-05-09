@@ -21,9 +21,12 @@ public class User {
 	private String username;
 	@NotBlank
 	private String password;// mật khẩu mã hóa
+	
 	@UniqueElements
 	private String address;
+	
 	private String avatar;
+	
 	private String role;
 	private Boolean isActive;
 	private String resetpasswordtoken;

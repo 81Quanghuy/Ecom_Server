@@ -12,7 +12,7 @@ public class Order {
 	
 	@Id
 	private String id;
-	
+
 	@Embedded
 	private User user;
 	private String address;

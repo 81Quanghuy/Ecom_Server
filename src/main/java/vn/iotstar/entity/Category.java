@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Category")
-public class Category {
+public class Category {	
 	@Id	
 	private String id;
 	private String name;
