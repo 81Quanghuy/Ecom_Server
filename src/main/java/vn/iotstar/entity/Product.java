@@ -21,10 +21,11 @@ public class Product {
 	private Integer sold;
 	private Boolean isselling;
 	private String listimage;
+	@DBRef
 	private Category category;
 	private Double rating;
-	private Date createat;
-	private Date updateat;
+	private String createat;
+	private String updateat;
 	
 	@NotBlank
 	private String barcode;
@@ -94,16 +95,16 @@ public class Product {
 	public void setRating(Double rating) {
 		this.rating = rating;
 	}
-	public Date getCreateat() {
+	public String getCreateat() {
 		return createat;
 	}
-	public void setCreateat(Date createat) {
+	public void setCreateat(String createat) {
 		this.createat = createat;
 	}
-	public Date getUpdateat() {
+	public String getUpdateat() {
 		return updateat;
 	}
-	public void setUpdateat(Date updateat) {
+	public void setUpdateat(String updateat) {
 		this.updateat = updateat;
 	}
 	public Category getCategory() {

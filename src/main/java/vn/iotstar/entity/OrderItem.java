@@ -15,11 +15,15 @@ public class OrderItem {
 	@DBRef
 	private Order order;
 	
-	private Product product;
 	private Integer count;
+  
 	private Date createat;
 	private Date updateat;
 	
+	@DBRef
+	private Product product;
+  
+	private Integer count;
 	public String getId() {
 		return id;
 	}
@@ -43,18 +47,6 @@ public class OrderItem {
 	}
 	public void setCount(Integer count) {
 		this.count = count;
-	}
-	public Date getCreateat() {
-		return createat;
-	}
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-	public Date getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(Date updateat) {
-		this.updateat = updateat;
 	}
 
 }

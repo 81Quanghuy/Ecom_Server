@@ -3,6 +3,7 @@ package vn.iotstar.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Review")
@@ -10,12 +11,14 @@ public class Review {
 
 	@Id
 	private String id;
+	@DBRef
 	private User user;
+	@DBRef
 	private Product product;
 	private String content;
 	private Integer rating;
-	private Date createat;
-	private Date updateat;
+	private String createat;
+	private String updateat;
 	private String productid;
 	
 	public String getProductid() {
@@ -54,16 +57,16 @@ public class Review {
 	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
-	public Date getCreateat() {
+	public String getCreateat() {
 		return createat;
 	}
-	public void setCreateat(Date createat) {
+	public void setCreateat(String createat) {
 		this.createat = createat;
 	}
-	public Date getUpdateat() {
+	public String getUpdateat() {
 		return updateat;
 	}
-	public void setUpdateat(Date updateat) {
+	public void setUpdateat(String updateat) {
 		this.updateat = updateat;
 	}
 	

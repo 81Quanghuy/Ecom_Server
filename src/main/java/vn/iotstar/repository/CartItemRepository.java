@@ -11,7 +11,7 @@ import vn.iotstar.entity.Product;
 
 public interface CartItemRepository extends MongoRepository<CartItem, Integer> {
 
-	List<CartItem> findByCart(Cart cart);
+	//List<CartItem> findByCart(Cart cart);
 
 	List<CartItem> findByProduct(Product product);
 	
