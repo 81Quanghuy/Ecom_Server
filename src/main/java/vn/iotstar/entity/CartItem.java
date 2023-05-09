@@ -11,14 +11,7 @@ public class CartItem {
 	@DBRef
 	Product product;
 	private Integer count;
-<<<<<<< HEAD
-	private String createat;
-	private String updateat;
 	public String getId() {
-=======
-
-	public Integer getId() {
->>>>>>> 93b0be1535cae45a52eaa59e2a4ecedd8a6794b8
 		return id;
 	}
 	public void setId(String id) {
@@ -37,17 +30,6 @@ public class CartItem {
 		this.count = count;
 	}
 
-	public String getCreateat() {
-		return createat;
-	}
-	public void setCreateat(String createat) {
-		this.createat = createat;
-	}
-	public String getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(String updateat) {
-		this.updateat = updateat;
-	}
+
 	
 }

@@ -38,8 +38,6 @@ public class UserController {
 	@Autowired
 	CartService cartService;
 	
-	@Autowired WishListService  wishListService;
-
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(@RequestParam(name = "username", required = false) String username,
