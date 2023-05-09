@@ -2,14 +2,21 @@ package vn.iotstar.entity;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Wishlist")
 public class Wishlist {
 
 	 	private String id;
-	    private String userId;
+	 	
+	 	@DBRef
+	    private User user;
+	 	
+	 	@DBRef
 	    private List<Product> products;
+	 	
+	 	
 
 	    public String getId() {
 	        return id;
@@ -18,12 +25,14 @@ public class Wishlist {
 	    public void setId(String id) {
 	        this.id = id;
 	    }
-	    public String getUserId() {
-			return userId;
+	    
+	    
+		public User getUser() {
+			return user;
 		}
 
-		public void setUserId(String userId) {
-			this.userId = userId;
+		public void setUser(User user) {
+			this.user = user;
 		}
 
 		public List<Product> getProducts() {

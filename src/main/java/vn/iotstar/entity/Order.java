@@ -1,28 +1,27 @@
 package vn.iotstar.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Embedded;
+
 
 @Document(collection = "Order")
 public class Order {
 	
 	@Id
 	private String id;
+	
+	@Embedded
 	private User user;
 	private String address;
 	private String phone;
 	private StatusOrder statusOrder; // Trang thai don hang 0.Cần xác nhận 1.Bị hủy 2. Đang giao 3. Đã giao
-	private Float price;
-
-	
-	@DBRef
+	private Double price;
+    @Embedded
 	List<OrderItem> orderitem;
 	
-
 	private String createat;
 	private String updateat;
 
@@ -51,10 +50,10 @@ public class Order {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(Float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getCreateat() {

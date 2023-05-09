@@ -1,12 +1,14 @@
 package vn.iotstar.entity;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Embeddable;
+
+
 @Document(collection = "OrderItem")
+@Embeddable
 public class OrderItem {
 
 	@Id
@@ -17,13 +19,26 @@ public class OrderItem {
 	
 	private Integer count;
   
-	private Date createat;
-	private Date updateat;
+	private String createat;
+	private String updateat;
 	
+	
+	
+	public String getCreateat() {
+		return createat;
+	}
+	public void setCreateat(String createat) {
+		this.createat = createat;
+	}
+	public String getUpdateat() {
+		return updateat;
+	}
+	public void setUpdateat(String updateat) {
+		this.updateat = updateat;
+	}
 	@DBRef
 	private Product product;
   
-	private Integer count;
 	public String getId() {
 		return id;
 	}
