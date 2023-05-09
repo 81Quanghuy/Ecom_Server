@@ -7,15 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "CartItem")
 public class CartItem {
 	@Id
-	private Integer id;
+	private String id;
 	@DBRef
 	Product product;
 	private Integer count;
-
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public Product getProduct() {
@@ -31,17 +30,6 @@ public class CartItem {
 		this.count = count;
 	}
 
-	public String getCreateat() {
-		return createat;
-	}
-	public void setCreateat(String createat) {
-		this.createat = createat;
-	}
-	public String getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(String updateat) {
-		this.updateat = updateat;
-	}
+
 	
 }
