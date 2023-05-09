@@ -23,11 +23,11 @@ public class OrderItem {
 	private Double Totalprice;
 	
 	
-	public Double getPrice() {
+	public Double getTotalprice() {
 		return Totalprice;
 	}
-	public void setPrice(Double price) {
-		this.Totalprice = price;
+	public void setTotalprice(Double totalprice) {
+		Totalprice = totalprice;
 	}
 	public String getCreateat() {
 		return createat;
