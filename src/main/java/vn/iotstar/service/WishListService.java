@@ -1,6 +1,5 @@
 package vn.iotstar.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,6 @@ public class WishListService {
 	public Wishlist findByUser(User user) {
 		return repository.findByUser(user);
 	}
-	
-	
-
 	
 	
 

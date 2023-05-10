@@ -52,7 +52,6 @@ public class OrderItemController {
 			entity.setId(UUID.randomUUID().toString().split("-")[0]);
 			mOrderItem.add(service.save(orderItem));
 		}
-		
 		return mOrderItem;
 	}
 

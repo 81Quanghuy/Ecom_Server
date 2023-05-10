@@ -195,6 +195,11 @@ public class UserController {
 		return wishListService.save(entity);
 	}
 
+	@PostMapping("deleteWishlist")
+	public void reomve(@RequestBody Wishlist wishlist) {
+		wishListService.delete(wishlist);
+	}
+	
 	  @PostMapping("/userwishlist")
 	  public WhislistModel getWishlistByUser(@RequestBody User user) {
 	        String message = "User not found";
@@ -206,10 +211,5 @@ public class UserController {
 			return new WhislistModel(message, null);
 	   }
 		
-	@GetMapping("userwishlist")
-	public boolean getWishlistByUser() {
-		
-		return true;
-	}
 	
 }
