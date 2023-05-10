@@ -195,10 +195,12 @@ public class UserController {
 		return wishListService.save(entity);
 	}
 
-	@PostMapping("deleteWishlist")
-	public void reomve(@RequestBody Wishlist wishlist) {
-		wishListService.delete(wishlist);
+	@PostMapping("delete")
+	public String deleteProduct(@RequestParam("id") String id) {
+		product.deleteById(id);
+		return "success";
 	}
+
 	
 	  @PostMapping("/userwishlist")
 	  public WhislistModel getWishlistByUser(@RequestBody User user) {
