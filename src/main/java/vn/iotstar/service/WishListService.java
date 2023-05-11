@@ -26,8 +26,9 @@ public class WishListService {
 		return repository.findById(id);
 	}
 
-	public void delete(Wishlist entity) {
+	public String delete(Wishlist entity) {
 		repository.delete(entity);
+		return "succes";
 	}
 
 	public Wishlist findByUser(User user) {

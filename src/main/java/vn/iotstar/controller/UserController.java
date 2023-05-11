@@ -191,6 +191,7 @@ public class UserController {
 	@PostMapping("addWishlist")
 	public Wishlist add(@RequestBody Wishlist category) {
 		Wishlist entity = category;
+		
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return wishListService.save(entity);
 	}
