@@ -21,7 +21,6 @@ import vn.iotstar.entity.ERole;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.WhislistModel;
-import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.CartService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.WishListService;
@@ -195,15 +194,13 @@ public class UserController {
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return wishListService.save(entity);
 	}
-
-
 	
 	  @PostMapping("/userwishlist")
 	  public WhislistModel getWishlistByUser(@RequestBody User user) {
 	        String message = "User not found";
 	        if(user != null) {
 		        Wishlist wisthlist = wishListService.findByUser(user);
-		        message = "succes";
+		        message = "success";
 		        return new WhislistModel(message, wisthlist.getProducts());
 	        }
 			return new WhislistModel(message, null);
