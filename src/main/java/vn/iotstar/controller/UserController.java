@@ -196,11 +196,6 @@ public class UserController {
 		return wishListService.save(entity);
 	}
 
-	@PostMapping("delete")
-	public String deleteProduct(@RequestParam("id") String id) {
-		product.deleteById(id);
-		return "success";
-	}
 
 	
 	  @PostMapping("/userwishlist")
