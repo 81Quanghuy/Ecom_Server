@@ -118,8 +118,53 @@ public class UserService {
 		return userRepo.findByUsername(username);
 	}
 	
-	
-	
-	
+	public boolean authenticate(String username, String password) {
+		List<User> users = userRepo.findByUsername(username);
+        User user = users.get(0);
+        if (user != null && user.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean changePassword(String username, String newPassword) {
+    	List<User> users = userRepo.findByUsername(username);
+        User user = users.get(0);
+        if (user != null) {
+            user.setPassword(newPassword);
+            userRepo.save(user);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean changePasswordByEmail(String mail, String newPassword) {
+    	User user = userRepo.findByEmail(mail);
+        if (user != null) {
+            user.setPassword(newPassword);
+            userRepo.save(user);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isEmailExists(String email) {
+        User user = userRepo.findByEmail(email);
+        return user != null;
+    }
+    
+    public void saveOTP(String email, String otp) {
+        User user = userRepo.findByEmail(email);
+        if (user != null) {
+            user.setOtp(otp);
+            userRepo.save(user);
+        }
+    }
+    
+    public boolean isValidOTP(String email, String otp) {
+        User user = userRepo.findByEmail(email);
+        return user != null && user.getOtp().equals(otp);
+    }
+    
 	
 }

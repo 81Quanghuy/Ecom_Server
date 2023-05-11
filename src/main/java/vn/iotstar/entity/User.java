@@ -44,7 +44,17 @@ public class User {
 		this.password = password;
 	}
 	
+	 private String otp;
+	 
 	
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
 	public User() {
 		super();
 	}
