@@ -191,13 +191,13 @@ public class UserController {
 	@PostMapping("addWishlist")
 	public Wishlist add(@RequestBody Wishlist wishlist) {
 		Wishlist entity = wishlist;
-		Wishlist oldwishlist = wishListService.findByUser(entity.getUser());
+		List<Wishlist> oldwishlist = wishListService.findByUser(entity.getUser());
 		if(oldwishlist != null) {
 			List<Product> products = new ArrayList<>();
-			products.addAll(oldwishlist.getProducts());
+			products.addAll(oldwishlist.get(0).getProducts());
 			products.addAll(entity.getProducts());
-			oldwishlist.setProducts(products);
-			return wishListService.save(oldwishlist);
+			oldwishlist.get(0).setProducts(products);
+			return wishListService.save(oldwishlist.get(0));
 		}
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return wishListService.save(entity);
@@ -207,9 +207,9 @@ public class UserController {
 	  public WhislistModel getWishlistByUser(@RequestBody User user) {
 	        String message = "User not found";
 	        if(user != null) {
-		        Wishlist wisthlist = wishListService.findByUser(user);
+		        List<Wishlist> wisthlist = wishListService.findByUser(user);
 		        message = "success";
-		        return new WhislistModel(message, wisthlist.getProducts());
+		        return new WhislistModel(message, wisthlist.get(0).getProducts());
 	        }
 			return new WhislistModel(message, null);
 	   }
