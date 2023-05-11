@@ -39,7 +39,9 @@ public class StorageService {
 		ImageData entity = new ImageData();
 		List<ImageData> list = repository.findAll();
 
+		
 		for (ImageData imageData : list) {
+			System.out.print(file.getOriginalFilename().equals(imageData.getName()));
 			if (file.getOriginalFilename().equals(imageData.getName())) {
 				Flag = true;
 				break;
