@@ -22,6 +22,7 @@ import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.WhislistModel;
+import vn.iotstar.model.WishlistResponse;
 import vn.iotstar.service.CartService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.WishListService;
@@ -188,19 +189,45 @@ public class UserController {
 	}
 
 	
+//	@PostMapping("addWishlist")
+//	public Wishlist add(@RequestBody Wishlist wishlist) {
+//		Wishlist entity = wishlist;
+//		List<Wishlist> oldwishlist = wishListService.findByUser(entity.getUser());
+//		if(oldwishlist != null) {
+//			List<Product> products = new ArrayList<>();
+//			products.addAll(oldwishlist.get(0).getProducts());
+//			products.addAll(entity.getProducts());
+//			oldwishlist.get(0).setProducts(products);
+//			return wishListService.save(oldwishlist.get(0));
+//		}
+//		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+//		return wishListService.save(entity);
+//	}
+	
 	@PostMapping("addWishlist")
-	public Wishlist add(@RequestBody Wishlist wishlist) {
-		Wishlist entity = wishlist;
-		List<Wishlist> oldwishlist = wishListService.findByUser(entity.getUser());
-		if(oldwishlist != null) {
-			List<Product> products = new ArrayList<>();
-			products.addAll(oldwishlist.get(0).getProducts());
-			products.addAll(entity.getProducts());
-			oldwishlist.get(0).setProducts(products);
-			return wishListService.save(oldwishlist.get(0));
+	public WishlistResponse add(@RequestBody WishlistResponse wishlist) {
+		WishlistResponse entity = wishlist;
+		Wishlist entities = new Wishlist();
+		String message = "fail";
+		List<Wishlist> list = wishListService.findByUser(entity.getUser());
+		if(list != null) {
+			message = "success";
+			Wishlist wlist = list.get(0);
+			List<Product> pro1 = list.get(0).getProducts();
+			pro1.add(wishlist.getProduct());
+			wlist.setProducts(pro1);
+			wishListService.save(wlist);
+			return new WishlistResponse(message,wishlist.getUser(), wishlist.getProduct());
+			
+		}else {
+			message ="create wishlist complete";
+			entities.setId(UUID.randomUUID().toString().split("-")[0]);
+			entities.setUser(wishlist.getUser());
+			List<Product> p1 = new ArrayList<>();
+			p1.add(wishlist.getProduct());
+			entities.setProducts(p1);
+			return new WishlistResponse(message, wishlist.getUser(), wishlist.getProduct());
 		}
-		entity.setId(UUID.randomUUID().toString().split("-")[0]);
-		return wishListService.save(entity);
 	}
 	
 	  @PostMapping("userwishlist")
