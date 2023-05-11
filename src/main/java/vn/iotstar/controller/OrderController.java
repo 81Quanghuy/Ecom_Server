@@ -45,6 +45,18 @@ public class OrderController {
 		return service.save(entity);
 	}
 
+	@PostMapping("deleteByStatus")
+	public String DeleteByStatus(@RequestParam(name = "status", required = false) StatusOrder Status) {
+		List<Order> list = service.findByStatusOrder(Status);
+		if(list.size()>0) {
+			service.deleteAll();
+			return "success";
+		}
+		else {
+			return "Error";
+		}
+		
+	}
 	@PostMapping("/getList")
 	public List<Order> getListHuy(@RequestParam(name = "status", required = false) StatusOrder Status) {
 		return service.findByStatusOrder(Status);
@@ -70,20 +82,17 @@ public class OrderController {
 
 	@PostMapping("delete")
 	public String delete(@RequestBody Order order) {
-		service.delete(order);
-		return "Succes";
+		Optional<Order> entity = service.findById(order.getId());
+		if(entity.isEmpty()) {
+			return "ERROR";
+		}
+		else {
+			service.delete(order);
+			return "Succes";
+		}
+		
 	}
 
-	@PostMapping("updateStatusAll")
-	public List<Order> updateStatus(@RequestParam(name = "status", required = false) StatusOrder Status,
-			@RequestParam(name = "statusChange", required = false) StatusOrder StatusChange) {
-		List<Order> list = service.findByStatusOrder(Status);
-		for (Order order : list) {
-			order.setStatusOrder(StatusChange);
-			service.save(order);
-		}
-		return list;
-	}
 	
 	@PostMapping("userOders")
 	public ResponseOrder getOrderByUser(@RequestBody User user) {
