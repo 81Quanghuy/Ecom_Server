@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.ERole;
+import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.WhislistModel;
@@ -188,9 +189,16 @@ public class UserController {
 
 	
 	@PostMapping("addWishlist")
-	public Wishlist add(@RequestBody Wishlist category) {
-		Wishlist entity = category;
-		
+	public Wishlist add(@RequestBody Wishlist wishlist) {
+		Wishlist entity = wishlist;
+		Wishlist oldwishlist = wishListService.findByUser(entity.getUser());
+		if(oldwishlist != null) {
+			List<Product> products = new ArrayList<>();
+			products.addAll(oldwishlist.getProducts());
+			products.addAll(entity.getProducts());
+			oldwishlist.setProducts(products);
+			return wishListService.save(oldwishlist);
+		}
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
 		return wishListService.save(entity);
 	}
