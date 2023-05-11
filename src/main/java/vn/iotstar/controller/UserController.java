@@ -69,7 +69,11 @@ public class UserController {
 	@PostMapping("/get")
 	public User getUserByUsername(@RequestParam(name = "username", required = false) String username,
 			@RequestParam(name = "password", required = false) String password) {
-		return userService.getUserByUsername(username, password);
+		User user = userService.getUserByUsername(username, password);
+		if(user.getIsActive()) {
+			return user;
+		}
+		return null;
 	}
 
 	@PostMapping("/getRole")
@@ -78,7 +82,10 @@ public class UserController {
 		User entity = userService.getUserByUsername(username, password);
 		if (entity.getRole().equals(ERole.ROLE_MANAGER.toString())
 				|| entity.getRole().equals(ERole.ROLE_ADMIN.toString())) {
-			return entity;
+			if(entity.getIsActive()) {
+				return entity;
+			}
+			
 		}
 		return null;
 	}
