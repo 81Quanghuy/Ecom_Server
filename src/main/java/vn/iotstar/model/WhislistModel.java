@@ -3,7 +3,6 @@ package vn.iotstar.model;
 import java.util.List;
 
 import vn.iotstar.entity.Product;
-import vn.iotstar.entity.User;
 
 public class WhislistModel {
 	String message;
