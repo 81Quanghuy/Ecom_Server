@@ -203,7 +203,7 @@ public class UserController {
 		return wishListService.save(entity);
 	}
 	
-	  @PostMapping("/userwishlist")
+	  @PostMapping("userwishlist")
 	  public WhislistModel getWishlistByUser(@RequestBody User user) {
 	        String message = "User not found";
 	        if(user != null) {
