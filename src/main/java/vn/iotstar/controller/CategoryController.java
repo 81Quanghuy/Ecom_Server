@@ -81,7 +81,7 @@ public class CategoryController {
 		Optional<Category> entity = cate.findById(id);
 		if (entity != null) {
 			Category category2 = entity.get();
-			List<Product> list = productService.findByCategory(category2.getImage());
+			List<Product> list = productService.findByCategory(category2.getName());
 			if (list.size() == 0) {
 
 				cate.delete(entity.get());
