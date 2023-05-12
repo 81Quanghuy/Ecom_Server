@@ -24,6 +24,7 @@ import vn.iotstar.entity.Wishlist;
 import vn.iotstar.entity.WishlistRequest;
 import vn.iotstar.model.ChangePasswordRequest;
 import vn.iotstar.model.ForgotPasswordRequest;
+import vn.iotstar.model.ForgotPasswordRes;
 import vn.iotstar.model.ResetPasswordRequest;
 import vn.iotstar.model.WhislistModel;
 import vn.iotstar.model.WishlistResponse;
@@ -31,10 +32,13 @@ import vn.iotstar.service.CartService;
 import vn.iotstar.service.EmailService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.WishListService;
+import java.security.SecureRandom;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
+	private static final String OTP_CHARACTERS = "0123456789";
+    private static final int OTP_LENGTH = 6;
 
 	@Autowired
 	private UserService userService;
@@ -286,14 +290,13 @@ public class UserController {
 		return "Sản phẩm " + request.getProduct().getId() + " đã được xoá khỏi wishlist của người dùng: "
 				+ request.getUser().getId();
 	}
-
+	
 	@PostMapping("/forgotPassword")
-	public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
-		String email = request.getEmail();
-
+	public ForgotPasswordRes forgotPassword(@RequestParam(name = "email", required = false) String email) {
+		
 		// Kiểm tra email có tồn tại trong hệ thống
 		if (!userService.isEmailExists(email)) {
-			return ResponseEntity.badRequest().body("Email không tồn tại");
+			return new ForgotPasswordRes(0,"Email không tồn tại");
 		}
 
 		// Sinh OTP
@@ -302,12 +305,33 @@ public class UserController {
 		// Lưu OTP và gửi email
 		userService.saveOTP(email, otp);
 		sendEmail(email, otp);
-		return ResponseEntity.ok("OTP đã được gửi đến email");
+		return new ForgotPasswordRes(1,"OTP đã được gửi đến email");
 	}
+//
+//	@PostMapping("/forgotPassword")
+//	public ResponseEntity<String> forgotPassword(@RequestParam(name = "email", required = false) String email) {
+//		
+//		// Kiểm tra email có tồn tại trong hệ thống
+//		if (!userService.isEmailExists(email)) {
+//			return ResponseEntity.badRequest().body("Email không tồn tại");
+//		}
+//
+//		// Sinh OTP
+//		String otp = generateOTP();
+//
+//		// Lưu OTP và gửi email
+//		userService.saveOTP(email, otp);
+//		sendEmail(email, otp);
+//		return ResponseEntity.ok("OTP đã được gửi đến email");
+//	}
 
 	private void sendEmail(String toEmail, String otp) {
 		String subject = "Reset Password OTP";
-		String body = "Mã OTP của bạn là: " + otp;
+		String body = "<html><body>"
+                + "<h1>OTP Confirmation</h1>"
+                + "<p>Your OTP: " + otp + "</p>"
+                + "<p>Please enter this OTP to confirm your action.</p>"
+                + "</body></html>";
 		emailService.sendEmail(toEmail, subject, body);
 	}
 
@@ -330,6 +354,25 @@ public class UserController {
 		return ResponseEntity.ok("Thay đổi mật khẩu thành công");
 	}
 
+//	@PostMapping("/resetPassword")
+//	public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+//		String email = request.getEmail();
+//		String otp = request.getOtp();
+//		String newPassword = request.getNewPassword();
+//
+//		// Kiểm tra OTP xác thực
+//		if (!userService.isValidOTP(email, otp)) {
+//			return ResponseEntity.badRequest().body("OTP không hợp lệ");
+//		}
+//
+//		// Thay đổi mật khẩu mới
+//		if (!userService.changePasswordByEmail(email, newPassword)) {
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi khi thay đổi mật khẩu");
+//		}
+//
+//		return ResponseEntity.ok("Thay đổi mật khẩu thành công");
+//	}
+	
 	@PostMapping("/resetPassword")
 	public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
 		String email = request.getEmail();
@@ -348,12 +391,24 @@ public class UserController {
 
 		return ResponseEntity.ok("Thay đổi mật khẩu thành công");
 	}
+	
 
 	private String generateOTP() {
-		// Sinh OTP logic
-		// ...
 
-		return "123456"; // Giả sử đây là mã OTP được sinh ra
+		  StringBuilder otp = new StringBuilder();
+	        SecureRandom random = new SecureRandom();
+
+	        for (int i = 0; i < OTP_LENGTH; i++) {
+	            int index = random.nextInt(OTP_CHARACTERS.length());
+	            char character = OTP_CHARACTERS.charAt(index);
+	            otp.append(character);
+	        }
+
+	        return otp.toString();
 	}
-
+	
+	@PostMapping("/checkOTP")
+	public String checkMail(@RequestParam(name = "mail", required = false) String mail,@RequestParam(name = "otp", required = false) String otp ) {
+		return userService.isValidOTP(mail, otp)+"";
+	}
 }
