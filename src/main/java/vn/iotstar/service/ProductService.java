@@ -25,6 +25,18 @@ public class ProductService {
 		return proRepo.save(entity);
 	}
 
+	public List<Product> findByCategory(Category category) {
+		return proRepo.findByCategory(category);
+	}
+
+	public List<Product> findByIsselling(Boolean isselling) {
+		return proRepo.findByIsselling(isselling);
+	}
+
+	public List<Product> findByQuantity(Integer quantity) {
+		return proRepo.findByQuantity(quantity);
+	}
+
 	public <S extends Product> S insert(S entity) {
 		return proRepo.insert(entity);
 	}

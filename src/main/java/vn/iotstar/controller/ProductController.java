@@ -90,6 +90,25 @@ public class ProductController {
 		return null;
 	}
 
+	@PostMapping("listByStatus")
+	public List<Product> getProductByStatus(@RequestParam(name = "status", required = false) String status){
+		if(status.trim().equals("Đang kinh doanh")) {
+			return product.findByIsselling(true);
+		}
+		else if(status.trim().equals("Tạm ngưng")) {
+			return product.findByIsselling(false);
+		}
+		else {
+			List<Product> productlist =product.findByQuantity(0);
+			List<Product> productentity = new ArrayList<>();
+			for (Product product : productlist) {
+				if(product.getIsselling()) {
+					productentity.add(product);
+				}
+			}
+			return productentity;
+		}
+	}
 	@GetMapping("/my/{barcode}")
 	public ResponseEntity<Product> getProductByBarcode(@PathVariable("barcode") String barcode) {
 		List<Product> lists = product.getProductByBarcode(barcode);
