@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.Order;
 import vn.iotstar.entity.OrderItem;
+import vn.iotstar.entity.Product;
 import vn.iotstar.entity.StatusOrder;
 import vn.iotstar.entity.User;
 import vn.iotstar.model.ResponseOrder;
 import vn.iotstar.service.OrderItemService;
 import vn.iotstar.service.OrderService;
+import vn.iotstar.service.ProductService;
 
 @RestController
 @RequestMapping("/order")
@@ -30,6 +34,8 @@ public class OrderController {
 	OrderService service;
 	@Autowired
 	OrderItemService orderItemService;
+	@Autowired
+	ProductService productService;
 
 	@PostMapping("add")
 	public Order addOrder(@RequestBody Order order) {
@@ -45,17 +51,23 @@ public class OrderController {
 		return service.save(entity);
 	}
 
-	@PostMapping("deleteByStatus")
-	public String DeleteByStatus(@RequestParam(name = "status", required = false) StatusOrder Status) {
+	@DeleteMapping("deleteByStatus")
+	public ResponseEntity<String> DeleteByStatus(@RequestParam(name = "status", required = false) StatusOrder Status) {
 		List<Order> list = service.findByStatusOrder(Status);
 		if(list.size()>0) {
+			for (Order order : list) {
+				List<OrderItem> orderItems = orderItemService.findByOrder(order);
+				for (OrderItem orderItem : orderItems) {
+					orderItemService.delete(orderItem);
+				}
+			}
 			service.deleteAll();
-			return "success";
+			return ResponseEntity.ok("Đã xóa thành công");
+			
 		}
 		else {
-			return "Error";
-		}
-		
+			return ResponseEntity.badRequest().body("Đơn hàng không tồn tại");
+		}		
 	}
 	@PostMapping("/getList")
 	public List<Order> getListHuy(@RequestParam(name = "status", required = false) StatusOrder Status) {
@@ -67,28 +79,46 @@ public class OrderController {
 			@RequestParam(name = "status", required = false) StatusOrder Status) {
 		Optional<Order> order = service.findById(id);
 		
+		// chỉnh ngày tháng năm thành dạng dd/mm/yyyy
+				Date date = new Date();
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String strDate = dateFormat.format(date);
+				
 		if (order != null) {
 			Order entity = order.get();
 			entity.setStatusOrder(Status);
-			List<OrderItem> list = orderItemService.findByOrder(entity);
-			for (OrderItem orderItem : list) {
-				orderItem.setOrder(entity);
-				orderItemService.save(orderItem);
+			if(Status.equals(StatusOrder.DAGIAO)) {
+				List<OrderItem> orderItems = orderItemService.findByOrder(entity);
+				for (OrderItem orderItem : orderItems) {
+					Optional<Product> product = productService.findById(orderItem.getProduct().getId());
+				if(!product.isEmpty()) {
+					Integer quantity = product.get().getQuantity();
+					Integer sold = product.get().getSold();
+					product.get().setQuantity(quantity - orderItem.getCount());
+					product.get().setSold(sold+orderItem.getCount());
+					product.get().setUpdateat(strDate);
+					productService.save(product.get());
+				}
+				}
 			}
 			return service.save(entity);
 		}
 		return null;
 	}
 
-	@PostMapping("delete")
-	public String delete(@RequestBody Order order) {
+	@DeleteMapping("delete")
+	public ResponseEntity<String> delete(@RequestBody Order order) {
 		Optional<Order> entity = service.findById(order.getId());
 		if(entity.isEmpty()) {
-			return "ERROR";
+			return ResponseEntity.badRequest().body("Đơn hàng không tồn tại");
 		}
 		else {
+			List<OrderItem> orderItems = orderItemService.findByOrder(entity.get());
+			for (OrderItem orderItem : orderItems) {
+				orderItemService.delete(orderItem);
+			}
 			service.delete(order);
-			return "Succes";
+			return ResponseEntity.ok("Đã xóa thành công");
 		}
 		
 	}
