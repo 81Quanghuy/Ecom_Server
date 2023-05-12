@@ -92,7 +92,15 @@ public class UserController {
 
 	@GetMapping("list")
 	public List<User> getUsers() {
-		return userService.findAll();
+		List<User> users = userService.findAll();
+		
+		List<User> userList = new ArrayList<>();
+		for (User user2 : users) {
+			if(user2.getRole().equals("ROLE_USER")) {
+				userList.add(user2);
+			}
+		}
+		return userList;
 	}
 
 	@PostMapping("/getUserById")
