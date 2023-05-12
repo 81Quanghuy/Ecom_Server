@@ -166,9 +166,17 @@ public class ProductController {
 	}
 
 	@PostMapping("delete")
-	public String deleteProduct(@RequestParam("id") String id) {
-		product.deleteById(id);
-		return "success";
+	public ResponseEntity<String>  deleteProduct(@RequestParam("id") String id) {
+		Optional<Product> entity = product.findById(id);
+		if(entity.isEmpty()) {
+			return ResponseEntity.badRequest().body("Sản phẩm không tồn tại");
+		}
+		else {
+			product.deleteById(id);
+			return ResponseEntity.ok("Đã xóa thành công");
+		}
+		
+		
 	}
 
 	@PostMapping("categoryName")
