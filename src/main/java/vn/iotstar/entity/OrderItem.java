@@ -13,34 +13,11 @@ public class OrderItem {
 	
 	@DBRef
 	private Order order;
-	private Integer count;
-	private String createat;
-	private String updateat;
 	
+	private Integer count;	
 	@DBRef
 	private Product product;
 	
-	private Double Totalprice;
-	
-	
-	public Double getTotalprice() {
-		return Totalprice;
-	}
-	public void setTotalprice(Double totalprice) {
-		Totalprice = totalprice;
-	}
-	public String getCreateat() {
-		return createat;
-	}
-	public void setCreateat(String createat) {
-		this.createat = createat;
-	}
-	public String getUpdateat() {
-		return updateat;
-	}
-	public void setUpdateat(String updateat) {
-		this.updateat = updateat;
-	}
  
 	public String getId() {
 		return id;
