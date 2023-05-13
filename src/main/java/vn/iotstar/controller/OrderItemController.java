@@ -72,12 +72,12 @@ public class OrderItemController {
 				ReponseThongKeProduct ThongkeProduct = new ReponseThongKeProduct();
 				String Day = lastSevenDays.get(i);
 				// khai báo 1 sản phẩm 
-			    
 			    // lặp qua từng đơn hàng chi tiết
 				for (OrderItem entity : orderItems) {
 					// nếu có đơn hàng ở ngày đó
 					if(entity.getOrder().getUpdateat().equals(Day)) {
-						
+						System.out.println("Ngày mua"+entity.getOrder().getUpdateat());
+						System.out.println("Date"+Day);
 						if(templ.size()>0) 
 						{
 							for (ReponseThongKeProduct orderItem : templ) {

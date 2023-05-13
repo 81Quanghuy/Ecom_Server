@@ -92,6 +92,7 @@ public class OrderController {
 		if (order != null) {
 			Order entity = order.get();
 			entity.setStatusOrder(Status);
+			entity.setUpdateat(strDate);
 			if(Status.equals(StatusOrder.DAGIAO)) {
 				List<OrderItem> orderItems = orderItemService.findByOrder(entity);
 				for (OrderItem orderItem : orderItems) {
