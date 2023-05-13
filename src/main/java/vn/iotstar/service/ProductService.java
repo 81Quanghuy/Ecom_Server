@@ -1,8 +1,10 @@
 package vn.iotstar.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,6 +92,19 @@ public class ProductService {
 	public List<Product> findTop3ByOrderBySoldDesc() {
 		return proRepo.findTop3ByOrderBySoldDesc();
 	}
+	
+	public List<Product> getTopSellingProducts(List<Product> productList) {
+        // Sắp xếp danh sách sản phẩm theo số lượng bán giảm dần
+        List<Product> sortedProducts = productList.stream()
+            .sorted(Comparator.comparingInt(Product::getSold).reversed())
+            .collect(Collectors.toList());
+
+        // Lấy danh sách top 5 sản phẩm
+        List<Product> topSellingProducts = sortedProducts.stream()
+            .limit(5)
+            .collect(Collectors.toList());
+        return topSellingProducts;
+    }
 
 	
 	
