@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,10 @@ public class OrderController {
 	@Autowired
 	ProductService productService;
 
+	@GetMapping("list")
+	public List<Order> listOrder(){
+		return service.findAll();
+	}
 	@PostMapping("add")
 	public Order addOrder(@RequestBody Order order) {
 		// chỉnh ngày tháng năm thành dạng dd/mm/yyyy
@@ -107,8 +112,8 @@ public class OrderController {
 	}
 
 	@DeleteMapping("delete")
-	public ResponseEntity<String> delete(@RequestBody Order order) {
-		Optional<Order> entity = service.findById(order.getId());
+	public ResponseEntity<String> delete(@RequestParam(name = "id", required = false) String id) {
+		Optional<Order> entity = service.findById(id);
 		if(entity.isEmpty()) {
 			return ResponseEntity.badRequest().body("Đơn hàng không tồn tại");
 		}
@@ -117,7 +122,7 @@ public class OrderController {
 			for (OrderItem orderItem : orderItems) {
 				orderItemService.delete(orderItem);
 			}
-			service.delete(order);
+			service.delete(entity.get());
 			return ResponseEntity.ok("Đã xóa thành công");
 		}
 		

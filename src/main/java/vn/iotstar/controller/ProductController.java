@@ -42,6 +42,13 @@ public class ProductController {
 	@Autowired
 	StorageService storage;
 
+	// lấy tất cả sản phẩm
+	@GetMapping("listAll")
+	public List<Product> getListAll(){
+		return product.findAll();
+	}
+	
+	
 	// lấy danh sách sản phẩm đang được bán
 	@GetMapping("list")
 	public List<Product> getProductAll() {
