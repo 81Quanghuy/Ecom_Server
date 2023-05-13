@@ -3,6 +3,8 @@ package vn.iotstar.repository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import vn.iotstar.entity.Category;
@@ -17,4 +19,5 @@ public interface ProductRepository extends MongoRepository<Product,String>{
 	Optional<Product> findById(String id);
 	
 	List<Product> findTop3ByOrderBySoldDesc();
+	
 }
