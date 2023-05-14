@@ -333,6 +333,27 @@ public class UserController {
                 + "</body></html>";
 		emailService.sendEmail(toEmail, subject, body);
 	}
+	
+	@PostMapping("/changePass")
+	public ChangePasswordRequest changePass(@RequestBody ChangePasswordRequest request) {
+		
+		String username = request.getUsername();
+		String currentPassword = request.getCurrentPassword();
+		String newPassword = request.getNewPassword();
+		// Kiểm tra xác thực người dùng và mật khẩu hiện tại
+		if (userService.authenticate(username, currentPassword)) {
+			// Thay đổi mật khẩu mới
+			if (userService.changePassword(username, newPassword)) {
+				return new ChangePasswordRequest(username, currentPassword, newPassword);
+
+			}
+
+		}
+		
+		
+				return null;
+
+	}
 
 	@PostMapping("/changePassword")
 	public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
