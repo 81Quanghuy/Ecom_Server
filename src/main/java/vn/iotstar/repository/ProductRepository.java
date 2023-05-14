@@ -24,4 +24,6 @@ public interface ProductRepository extends MongoRepository<Product,String>{
 	
 	List<Product> findTop5ByOrderBySoldDesc();
 	
+	List<Product> findTop5ByOrderByCreateatDesc();
+	
 }
