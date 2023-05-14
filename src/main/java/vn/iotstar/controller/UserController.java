@@ -226,7 +226,7 @@ public class UserController {
 			Wishlist newWishlist = new Wishlist();
 			newWishlist.setUser(wishlist.getUser());
 			newWishlist.setProducts(wishlist.getProducts());
-
+			newWishlist.setId(UUID.randomUUID().toString().split("-")[0]);
 			Wishlist savedWishlist = wishListService.save(newWishlist);
 			message = "success";
 
