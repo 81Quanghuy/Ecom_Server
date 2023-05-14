@@ -4,7 +4,7 @@ import java.util.List;
 
 import vn.iotstar.entity.Product;
 
-public class WhislistModel {
+public class WishListRequest {
 	String message;
 	List<Product> list;
 	public String getMessage() {
@@ -19,7 +19,7 @@ public class WhislistModel {
 	public void setList(List<Product> list) {
 		this.list = list;
 	}
-	public WhislistModel(String message, List<Product> list) {
+	public WishListRequest(String message, List<Product> list) {
 		super();
 		this.message = message;
 		this.list = list;

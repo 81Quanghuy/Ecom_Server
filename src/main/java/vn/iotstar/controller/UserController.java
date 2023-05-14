@@ -27,6 +27,7 @@ import vn.iotstar.model.ForgotPasswordRequest;
 import vn.iotstar.model.ForgotPasswordRes;
 import vn.iotstar.model.ResetPasswordRequest;
 import vn.iotstar.model.WhislistModel;
+import vn.iotstar.model.WishListRequest;
 import vn.iotstar.model.WishlistResponse;
 import vn.iotstar.service.CartService;
 import vn.iotstar.service.EmailService;
@@ -245,14 +246,14 @@ public class UserController {
 	}
 
 	@PostMapping("userwishlist")
-	public WhislistModel getWishlistByUser(@RequestBody User user) {
+	public WishListRequest getWishlistByUser(@RequestBody User user) {
 		String message = "User not found";
 		if (user != null) {
 			List<Wishlist> wisthlist = wishListService.findByUser(user);
 			message = "success";
-			return new WhislistModel(message, wisthlist.get(0).getProducts());
+			return new WishListRequest(message, wisthlist.get(0).getProducts());
 		}
-		return new WhislistModel(message, null);
+		return new WishListRequest(message, null);
 	}
 
 	@GetMapping("wishlist")
