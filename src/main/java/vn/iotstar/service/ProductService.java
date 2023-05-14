@@ -13,6 +13,8 @@ import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
 import vn.iotstar.repository.ProductRepository;
 
+
+
 @Service
 public class ProductService {
 
@@ -92,8 +94,26 @@ public class ProductService {
 	public List<Product> findTop5ByOrderBySoldDesc() {
 		return proRepo.findTop5ByOrderBySoldDesc();
 	}
-	
 
 	
+	public List<Product> findTop5Discount() {
+	    List<Product> listAll = proRepo.findAll();
+
+	    List<Product> top5DiscountProducts = listAll.stream()
+	    		.filter(Product::getIsselling)
+	            .sorted(new Comparator<Product>() {
+	                @Override
+	                public int compare(Product p1, Product p2) {
+	                    double discount1 = (double) (p1.getPrice() - p1.getPromotionaprice()) / p1.getPrice();
+	                    double discount2 = (double) (p2.getPrice() - p2.getPromotionaprice()) / p2.getPrice();
+
+	                    return Double.compare(discount2, discount1);
+	                }
+	            })
+	            .limit(5)
+	            .collect(Collectors.toList());
+
+	    return top5DiscountProducts;
+	}
 	
 }

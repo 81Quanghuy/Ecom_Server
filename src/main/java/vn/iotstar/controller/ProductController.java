@@ -67,6 +67,11 @@ public class ProductController {
 	public List<Product> getTop5() {
 		return product.findTop5ByOrderBySoldDesc();
 	}
+	
+	@GetMapping("gettop5discount")
+	public List<Product> getTop5discount() {
+		return product.findTop5Discount();
+	}
 
 	@PostMapping("active")
 	public Product producChangeActive(@RequestParam(name = "id", required = false) String id,
