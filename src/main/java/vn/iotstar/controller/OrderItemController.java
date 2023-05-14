@@ -1,16 +1,14 @@
 package vn.iotstar.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,17 +22,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.Order;
 import vn.iotstar.entity.OrderItem;
-import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Review;
 import vn.iotstar.entity.StatusOrder;
+import vn.iotstar.entity.User;
 import vn.iotstar.model.ReponseThongKeProduct;
 import vn.iotstar.service.OrderItemService;
 import vn.iotstar.service.OrderService;
+import vn.iotstar.service.ReviewService;
 
 @RestController
 @RequestMapping("/orderItem")
 public class OrderItemController {
 	@Autowired
 	OrderItemService service;
+	
+	@Autowired
+	ReviewService reviewService;
 
 	@Autowired
 	OrderService orderSerive;
@@ -302,4 +305,36 @@ public class OrderItemController {
 		return null;
 	}
 	
+	@PostMapping("user/notreview")
+	public List<OrderItem> getOrderByUserNotReview(@RequestBody User user) {
+	    List<Order> orders = orderSerive.findByUser(user);
+	    List<OrderItem> orderItems = new ArrayList<>();
+	    List<Review> lview = reviewService.findByUser(user);
+	    if (lview == null) {
+	        return Collections.emptyList();
+	    }
+
+	    Set<String> reviewedProductIds = lview.stream()
+	            .map(review -> review.getProduct().getId())
+	            .collect(Collectors.toSet());
+
+	    for (Order order : orders) {
+	        orderItems.addAll(service.findByOrder(order));
+	    }
+
+	    List<OrderItem> chuadanhgia = new ArrayList<>();
+	    for (OrderItem item : orderItems) {
+	        if (item.getProduct() != null && !reviewedProductIds.contains(item.getProduct().getId())) {
+	            chuadanhgia.add(item);
+	        }
+	    }
+
+	    return chuadanhgia;
+	}
+
+
+
+
+
+
 }
