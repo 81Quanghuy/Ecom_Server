@@ -1,0 +1,22 @@
+spring:
+  data:
+    jpa:
+      repositories:
+        enable: false
+  
+    mongodb:
+      uri : mongodb+srv://huy:huyvff111@cluster0.wteenm1.mongodb.net/testmongo?retryWrites=true&w=majority
+      database : EcomApi
+      
+  mail:
+    host: smtp.gmail.com
+    username: toannguyen7202@gmail.com
+    password: kbpxstxrokumbckv
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            
