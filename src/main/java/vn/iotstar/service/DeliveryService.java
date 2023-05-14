@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Delivery;
+import vn.iotstar.entity.User;
 import vn.iotstar.repository.DeliveryRepository;
 
 @Service
@@ -50,5 +51,10 @@ public class DeliveryService {
 	public void deleteAll() {
 		deliveryRepo.deleteAll();
 	}
+
+	public List<Delivery> findByUser(User user) {
+		return deliveryRepo.findByUser(user);
+	}
+	
 	
 }

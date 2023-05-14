@@ -62,6 +62,11 @@ public class ProductController {
 		}
 		return products;
 	}
+	
+	 @GetMapping("/byCreatedAt")
+	    public List<Product> getProductsByCreatedAt() {
+	        return product.findAllByOrderByCreateatDesc();
+	 }
 
 	@GetMapping("gettop5")
 	public List<Product> getTop5() {

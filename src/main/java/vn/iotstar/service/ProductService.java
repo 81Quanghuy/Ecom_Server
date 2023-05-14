@@ -115,5 +115,10 @@ public class ProductService {
 
 	    return top5DiscountProducts;
 	}
+
+	public List<Product> findAllByOrderByCreateatDesc() {
+		return proRepo.findTop5ByOrderByCreateatDesc();
+	}
 	
+
 }
