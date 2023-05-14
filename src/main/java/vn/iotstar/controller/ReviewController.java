@@ -1,5 +1,8 @@
 package vn.iotstar.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,8 +32,14 @@ public class ReviewController {
 
 	@PostMapping("/add")
 	public Review addOrderItem(@RequestBody Review reiReview) {
-		Review entity = reiReview;
+		Review entity = reiReview;		// chỉnh ngày tháng năm thành dạng dd/mm/yyyy
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String strDate = dateFormat.format(date);
+		entity.setCreateat(strDate);
+		entity.setUpdateat(strDate);
 		entity.setId(UUID.randomUUID().toString().split("-")[0]);
+		
 		return review.save(reiReview);
 	}
 	
