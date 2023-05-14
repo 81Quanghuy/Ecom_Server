@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -309,23 +310,31 @@ public class OrderItemController {
 	    List<Order> orders = orderSerive.findByUser(user);
 	    List<OrderItem> orderItems = new ArrayList<>();
 	    List<Review> lview = reviewService.findByUser(user);
+	    if (lview == null) {
+	        return Collections.emptyList();
+	    }
+
+	    Set<String> reviewedProductIds = lview.stream()
+	            .map(review -> review.getProduct().getId())
+	            .collect(Collectors.toSet());
 
 	    for (Order order : orders) {
 	        orderItems.addAll(service.findByOrder(order));
 	    }
 
-	    List<OrderItem> chuadanhgia = new ArrayList<>(orderItems);
-	    chuadanhgia.removeAll(lview);
-
-	    Iterator<OrderItem> iterator = chuadanhgia.iterator();
-	    while (iterator.hasNext()) {
-	        OrderItem item = iterator.next();
-	        if (item.getOrder().getStatusOrder() != StatusOrder.DAGIAO) {
-	            iterator.remove();
+	    List<OrderItem> chuadanhgia = new ArrayList<>();
+	    for (OrderItem item : orderItems) {
+	        if (item.getProduct() != null && !reviewedProductIds.contains(item.getProduct().getId())) {
+	            chuadanhgia.add(item);
 	        }
 	    }
 
 	    return chuadanhgia;
 	}
-	
+
+
+
+
+
+
 }
