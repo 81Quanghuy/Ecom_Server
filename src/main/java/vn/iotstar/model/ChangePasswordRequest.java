@@ -4,6 +4,7 @@ public class ChangePasswordRequest {
     private String username;
     private String currentPassword;
     private String newPassword;
+
 	public String getUsername() {
 		return username;
 	}
@@ -22,8 +23,16 @@ public class ChangePasswordRequest {
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
+	public ChangePasswordRequest(String username, String currentPassword, String newPassword) {
+		super();
+		this.username = username;
+		this.currentPassword = currentPassword;
+		this.newPassword = newPassword;
+	}
 
     // Getters and setters
+	
+	
     // ...
     
 }
