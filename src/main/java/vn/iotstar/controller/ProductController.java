@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -44,35 +45,35 @@ public class ProductController {
 
 	// lấy tất cả sản phẩm
 	@GetMapping("listAll")
-	public List<Product> getListAll(){
+	public List<Product> getListAll() {
 		return product.findAll();
 	}
-	
-	
+
 	// lấy danh sách sản phẩm đang được bán
 	@GetMapping("list")
 	public List<Product> getProductAll() {
 		List<Product> list = product.findAll();
 		List<Product> products = new ArrayList<>();
 		for (Product product : list) {
-			if(product.getIsselling()) {
+			if (product.getIsselling()) {
 				products.add(product);
 			}
-			
+
 		}
 		return products;
 	}
-	
-	 @GetMapping("/byCreatedAt")
-	    public List<Product> getProductsByCreatedAt() {
-	        return product.findAllByOrderByCreateatDesc();
-	 }
+
+	@GetMapping("/byCreatedAt")
+	public List<Product> getProductsByCreatedAt() {
+		return product.findAllByOrderByCreateatDesc();
+	}
+
 
 	@GetMapping("gettop5")
 	public List<Product> getTop5() {
 		return product.findTop5ByOrderBySoldDesc();
 	}
-	
+
 	@GetMapping("gettop5discount")
 	public List<Product> getTop5discount() {
 		return product.findTop5Discount();
@@ -109,24 +110,23 @@ public class ProductController {
 	}
 
 	@PostMapping("listByStatus")
-	public List<Product> getProductByStatus(@RequestParam(name = "status", required = false) String status){
-		if(status.trim().equals("Đang kinh doanh")) {
+	public List<Product> getProductByStatus(@RequestParam(name = "status", required = false) String status) {
+		if (status.trim().equals("Đang kinh doanh")) {
 			return product.findByIsselling(true);
-		}
-		else if(status.trim().equals("Tạm ngưng")) {
+		} else if (status.trim().equals("Tạm ngưng")) {
 			return product.findByIsselling(false);
-		}
-		else {
-			List<Product> productlist =product.findByQuantity(0);
+		} else {
+			List<Product> productlist = product.findByQuantity(0);
 			List<Product> productentity = new ArrayList<>();
 			for (Product product : productlist) {
-				if(product.getIsselling()) {
+				if (product.getIsselling()) {
 					productentity.add(product);
 				}
 			}
 			return productentity;
 		}
 	}
+
 	@GetMapping("/my/{barcode}")
 	public ResponseEntity<Product> getProductByBarcode(@PathVariable("barcode") String barcode) {
 		List<Product> lists = product.getProductByBarcode(barcode);
@@ -167,38 +167,47 @@ public class ProductController {
 			Random random = new Random();
 			productEntity.setBarcode(String.valueOf(random.nextInt(9000000) + 1000000));
 		}
-		// sửa 
+		// sửa
 		else {
 			productEntity.setUpdateat(strDate);
 		}
-		if(productEntity.getPrice()<0) {
+		if (productEntity.getPrice() < 0) {
 			productEntity.setPrice(0);
 		}
-		if(productEntity.getPromotionaprice()<0) {
+		if (productEntity.getPromotionaprice() < 0) {
 			productEntity.setPromotionaprice(0);
 		}
-		if(productEntity.getQuantity()<0) {
+		if (productEntity.getQuantity() < 0) {
 			productEntity.setQuantity(0);
 		}
 		return product.save(productEntity);
 	}
 
 	@DeleteMapping("delete")
-	public ResponseEntity<String>  deleteProduct(@RequestParam("id") String id) {
+	public ResponseEntity<String> deleteProduct(@RequestParam("id") String id) {
 		Optional<Product> entity = product.findById(id);
-		if(entity.isEmpty()) {
+		if (entity.isEmpty()) {
 			return ResponseEntity.badRequest().body("Sản phẩm không tồn tại");
-		}
-		else {
+		} else {
 			product.deleteById(id);
 			return ResponseEntity.ok("Đã xóa thành công");
 		}
-		
-		
+
 	}
 
 	@PostMapping("categoryName")
 	public List<Product> getListByCate(@RequestParam("name") String name) {
 		return product.findByCategory(name);
+	}
+	
+	@PostMapping("getById")
+	public List<Product> getListProductSame(@RequestParam("id") String id) {
+	    Optional<Product> productOptional = product.findById(id);
+	    if (productOptional.isPresent()) {
+	        Product p = productOptional.get();
+	        return product.findByCategory(p.getCategory());
+	    } else {
+	        return Collections.emptyList(); // Hoặc trả về danh sách rỗng khác tùy thuộc vào yêu cầu của bạn
+	    }
 	}
 }
