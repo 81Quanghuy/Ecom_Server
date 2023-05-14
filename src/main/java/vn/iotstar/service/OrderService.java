@@ -17,6 +17,10 @@ public class OrderService {
 	@Autowired
 	OrderRepository orderRepo;
 
+	public List<Order> findByUpdateat(String updateat) {
+		return orderRepo.findByUpdateat(updateat);
+	}
+
 	public <S extends Order> S save(S entity) {
 		return orderRepo.save(entity);
 	}

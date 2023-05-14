@@ -2,6 +2,7 @@ package vn.iotstar.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -141,4 +142,53 @@ public class OrderController {
 		return new ResponseOrder(message, null);
 	}
 	
+	//Thống kê đơn hàng
+	@PostMapping("analysis")
+	public List<Order> getListOrder(@RequestParam(name = "focus", required = false) String time,
+			@RequestParam(name = "date", required = false) String date){
+		if(time.toString().equals("date")) {
+			List<Order> orders = service.findByUpdateat(date);
+			if(orders!= null) {
+				return orders;
+			}
+			else {
+				return null;
+			}
+		}
+		else if(time.toString().equals("month")) {
+			List<Order> orderList = service.findAll();
+			List<Order> entitys = new ArrayList<>();
+			String firstMonth  = date.split("/")[1];
+			for (Order order : orderList) {
+				 String[] dateParts = order.getUpdateat().split("/");
+				 String month = dateParts[1]; 
+				 if (month.equals(firstMonth)) {
+					 entitys.add(order);
+				       
+				    } else {
+				        
+				    }
+			}
+			return entitys;
+
+		}
+		else if(time.toString().equals("year")) {
+			List<Order> orderList = service.findAll();
+			List<Order> entitys = new ArrayList<>();
+			String firstYear  = date.split("/")[2];
+			for (Order order : orderList) {
+				 String[] dateParts = order.getUpdateat().split("/");
+				 String year = dateParts[2]; 
+				 
+				 if (year.equals(firstYear)) {
+					 entitys.add(order);
+				    
+				    } else {
+				       
+				    }
+			}
+			return entitys;
+		}
+		return null;
+	}
 }
