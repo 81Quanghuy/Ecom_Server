@@ -1,5 +1,6 @@
 package vn.iotstar.controller;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,17 +24,14 @@ import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.entity.WishlistRequest;
 import vn.iotstar.model.ChangePasswordRequest;
-import vn.iotstar.model.ForgotPasswordRequest;
 import vn.iotstar.model.ForgotPasswordRes;
 import vn.iotstar.model.ResetPasswordRequest;
-import vn.iotstar.model.WhislistModel;
 import vn.iotstar.model.WishListRequest;
 import vn.iotstar.model.WishlistResponse;
 import vn.iotstar.service.CartService;
 import vn.iotstar.service.EmailService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.WishListService;
-import java.security.SecureRandom;
 
 @RestController
 @RequestMapping("/user")

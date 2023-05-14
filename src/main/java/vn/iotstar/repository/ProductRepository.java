@@ -22,6 +22,6 @@ public interface ProductRepository extends MongoRepository<Product,String>{
 	
 	List<Product> findByQuantity(Integer quantity);
 	
-	List<Product> findTop3ByOrderBySoldDesc();
+	List<Product> findTop5ByOrderBySoldDesc();
 	
 }

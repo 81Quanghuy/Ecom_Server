@@ -89,22 +89,10 @@ public class ProductService {
 		return entity;
 	}
 
-	public List<Product> findTop3ByOrderBySoldDesc() {
-		return proRepo.findTop3ByOrderBySoldDesc();
+	public List<Product> findTop5ByOrderBySoldDesc() {
+		return proRepo.findTop5ByOrderBySoldDesc();
 	}
 	
-	public List<Product> getTopSellingProducts(List<Product> productList) {
-        // Sắp xếp danh sách sản phẩm theo số lượng bán giảm dần
-        List<Product> sortedProducts = productList.stream()
-            .sorted(Comparator.comparingInt(Product::getSold).reversed())
-            .collect(Collectors.toList());
-
-        // Lấy danh sách top 5 sản phẩm
-        List<Product> topSellingProducts = sortedProducts.stream()
-            .limit(5)
-            .collect(Collectors.toList());
-        return topSellingProducts;
-    }
 
 	
 	
