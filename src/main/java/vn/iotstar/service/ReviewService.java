@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Review;
 import vn.iotstar.entity.User;
+import vn.iotstar.repository.ProductRepository;
 import vn.iotstar.repository.ReviewRepository;
 
 @Service
@@ -16,8 +17,12 @@ public class ReviewService {
 
 	@Autowired
 	ReviewRepository reviewRepo;
+	
+	@Autowired
+	ProductRepository productRepository;
 
 	public <S extends Review> S save(S entity) {
+		
 		return reviewRepo.save(entity);
 	}
 
@@ -53,6 +58,22 @@ public class ReviewService {
 		return reviewRepo.findByUser(user);
 	}
 	
+	 public double calculateAverageRatingByProduct(String productId) {
+	        //Optional<Product> optionalProduct = productRepository.findById(productId);
+		 Optional<Product> product = productRepository.findById(productId);
+	        if (product.isPresent()) {
+	            Product product1 = product.get();
+	            List<Review> reviews = reviewRepo.findByProduct(product1);
+	            if (!reviews.isEmpty()) {
+	                int sumRating = 0;
+	                for (Review review : reviews) {
+	                    sumRating += review.getRating();
+	                }
+	                return (double) sumRating / reviews.size();
+	            }
+	        }
+	        return 0.0;
+	 }
 	
 	
 }

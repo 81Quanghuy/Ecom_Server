@@ -1,14 +1,11 @@
 package vn.iotstar.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,17 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.iotstar.entity.Order;
 import vn.iotstar.entity.OrderItem;
-import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Review;
 import vn.iotstar.entity.StatusOrder;
+import vn.iotstar.entity.User;
 import vn.iotstar.model.ReponseThongKeProduct;
 import vn.iotstar.service.OrderItemService;
 import vn.iotstar.service.OrderService;
+import vn.iotstar.service.ReviewService;
 
 @RestController
 @RequestMapping("/orderItem")
 public class OrderItemController {
 	@Autowired
 	OrderItemService service;
+	
+	@Autowired
+	ReviewService reviewService;
 
 	@Autowired
 	OrderService orderSerive;
@@ -300,6 +302,30 @@ public class OrderItemController {
 			return orderItems;
 		}
 		return null;
+	}
+	
+	@PostMapping("user/notreview")
+	public List<OrderItem> getOrderByUserNotReview(@RequestBody User user) {
+	    List<Order> orders = orderSerive.findByUser(user);
+	    List<OrderItem> orderItems = new ArrayList<>();
+	    List<Review> lview = reviewService.findByUser(user);
+
+	    for (Order order : orders) {
+	        orderItems.addAll(service.findByOrder(order));
+	    }
+
+	    List<OrderItem> chuadanhgia = new ArrayList<>(orderItems);
+	    chuadanhgia.removeAll(lview);
+
+	    Iterator<OrderItem> iterator = chuadanhgia.iterator();
+	    while (iterator.hasNext()) {
+	        OrderItem item = iterator.next();
+	        if (item.getOrder().getStatusOrder() != StatusOrder.DAGIAO) {
+	            iterator.remove();
+	        }
+	    }
+
+	    return chuadanhgia;
 	}
 	
 }
