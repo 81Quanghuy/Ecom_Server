@@ -1,7 +1,5 @@
 package vn.iotstar.entity;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,7 +18,15 @@ public class Review {
 	private String createat;
 	private String updateat;
 	private String productid;
+	private String listimage;
 	
+	
+	public String getListimage() {
+		return listimage;
+	}
+	public void setListimage(String listimage) {
+		this.listimage = listimage;
+	}
 	public String getProductid() {
 		return productid;
 	}
