@@ -63,9 +63,9 @@ public class ProductController {
 		return products;
 	}
 
-	@GetMapping("gettop3")
-	public List<Product> getTop3() {
-		return product.findTop3ByOrderBySoldDesc();
+	@GetMapping("gettop5")
+	public List<Product> getTop5() {
+		return product.findTop5ByOrderBySoldDesc();
 	}
 
 	@PostMapping("active")

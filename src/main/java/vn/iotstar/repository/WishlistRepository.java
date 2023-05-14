@@ -10,5 +10,5 @@ import vn.iotstar.entity.Wishlist;
 public interface WishlistRepository extends MongoRepository<Wishlist, String> {
 	
 	List<Wishlist> findByUser(User user);
-
+	
 }

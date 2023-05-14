@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.repository.WishlistRepository;
@@ -35,8 +36,5 @@ public class WishListService {
 	public List<Wishlist> findByUser(User user) {
 		return repository.findByUser(user);
 	}
-
-	
-	
 
 }
